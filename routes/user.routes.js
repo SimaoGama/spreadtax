@@ -39,13 +39,4 @@ router.get('/user/dashboard', async (req, res) => {
   }
 });
 
-router.get('/clients/:id', async (req, res) => {
-  const clientId = req.session.currentUser.userClients._id;
-  const client = await User.findById(clientId).populate({
-    path: 'userClients._id',
-    options: { strictPopulate: false }
-  });
-  res.render('clients/client-details', client);
-});
-
 module.exports = router;

@@ -4,11 +4,20 @@ const Client = require('../models/Client.model');
 const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 
-router.get('/clients/new', (req, res) => {
-  if (!req.session.currentUser || !req.session.currentUser._id) {
+router.get('/clients/new', async (req, res) => {
+  const user = await User.findById(req.session.currentUser._id);
+  console.log(user.userClients.length);
+  console.log(user.accountType);
+  if (!req.session.currentUser || !user) {
     res.redirect('/login');
   } else {
-    res.render('clients/new-client');
+    if (user.accountType.isFree && user.userClients.length === 2) {
+      console.log('error');
+      res.redirect('/');
+    } else {
+      console.log('success');
+      res.render('clients/new-client');
+    }
   }
 });
 
@@ -60,6 +69,12 @@ router.post('/clients/new', async (req, res) => {
   await currentUser.save();
 
   res.redirect('/user/dashboard');
+});
+
+router.get('/clients/:id', async (req, res) => {
+  const clientId = req.params.id;
+  const client = await Client.findById(clientId);
+  res.render('clients/client-details', client);
 });
 
 module.exports = router;

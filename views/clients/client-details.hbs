@@ -1,10 +1,19 @@
-<h1>{{userClients.companyName}}</h1>
+<h1>{{this.companyName}}</h1>
 <hr />
 
 <a href='/clients/edit/{{id}}' style='font-size: large;'>Edit Client</a>
 
 <br />
 <br />
+{{#if currentUser}}
+
+  <p> <b>Address:</b> {{this.address}}</p>
+  <p><b>NIPC:</b> {{this.nipc}}</p>
+  <p><b>NISS:</b> {{this.niss}}</p>
+
+{{else}}
+  <p>No clients found.</p>
+{{/if}}
 
 {{!-- <form action='/books/delete/{{id}}' method='POST'>
   <button>
@@ -17,4 +26,8 @@
 {{/if}}
 
 <hr />
-<a href='/user/dashboard'>Back</a>
+<a
+  type='button'
+  class='btn btn-secondary btn-default'
+  href='/user/dashboard'
+>Back</a>

@@ -5,21 +5,21 @@
     <br />
     <h2>Client list</h2>
     <br />
-    {{#each user}}
-      {{#each this.userClients}}
 
-        <div class='col-sm'>
+    <div class='col-sm'>
+      {{#each user}}
+        {{#each this.userClients}}
           <a
             type='button'
             class='btn btn-secondary btn-default'
             href='/clients/{{_id}}'
           >{{this.companyName}}
           </a>
-        </div>
-        <br />
-
+          <br />
+          <br />
+        {{/each}}
       {{/each}}
-    {{/each}}
+    </div>
 
     <a
       type='button'
