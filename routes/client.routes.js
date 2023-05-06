@@ -53,14 +53,13 @@ router.post('/clients/new', async (req, res) => {
 
   //Find current user
   const currentUser = await User.findById(req.session.currentUser._id);
-  console.log(currentUser);
 
   //update push client
   currentUser.userClients.push(newClient._id);
 
   await currentUser.save();
 
-  res.redirect('/');
+  res.redirect('/user/dashboard');
 });
 
 module.exports = router;

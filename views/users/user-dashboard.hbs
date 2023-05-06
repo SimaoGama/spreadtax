@@ -1,18 +1,31 @@
-<div class='container'>
-  <h2>Dashboard</h2>
+<h1>Dashboard</h1>
 
-  <div class='row'>
-    <div class='col'>
-      <div
-        class='btn-group-vertical'
-        role='group'
-        aria-label='Vertical button group'
-      >
-        <a type='button' class='btn btn-primary' href='/clients/new'>Add a new
-          client</a>
-      </div>
-    </div>
-    <div class='col'></div>
-    <div class='col'></div>
+{{#if currentUser}}
+  <div class='container'>
+    <br />
+    <h2>Client list</h2>
+    <br />
+    {{#each user}}
+      {{#each this.userClients}}
+
+        <div class='col-sm'>
+          <a
+            type='button'
+            class='btn btn-secondary btn-default'
+            href='/clients/{{_id}}'
+          >{{this.companyName}}
+          </a>
+        </div>
+        <br />
+
+      {{/each}}
+    {{/each}}
+
+    <a
+      type='button'
+      class='btn btn-secondary btn-default'
+      href='/clients/new'
+    >New Client
+    </a>
   </div>
-</div>
+{{/if}}
