@@ -1,0 +1,20 @@
+<h1>{{companyName}}</h1>
+<hr />
+
+<a href='/clients/edit/{{id}}' style='font-size: large;'>Edit Client</a>
+
+<br />
+<br />
+
+<form action='/books/delete/{{id}}' method='POST'>
+  <button>
+    Delete
+  </button>
+</form>
+
+{{#if imageUrl}}
+  <img src='{{imageUrl}}' alt='' />
+{{/if}}
+
+<hr />
+<a href='/'>Back</a>

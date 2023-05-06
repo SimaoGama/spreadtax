@@ -1,0 +1,40 @@
+<h1>{{title}}</h1>
+<hr />
+<p>Written by: {{author.name}}</p>
+<p>Summary: {{description}}</p>
+<p>Rating: {{rating}}</p>
+<a href='/books/{{id}}/edit' style='font-size: large;'>Edit this Book</a>
+
+<br />
+<br />
+
+<form action='/books/delete/{{id}}' method='POST'>
+  <button>
+    Delete
+  </button>
+</form>
+
+{{#if imageUrl}}
+  <img src='{{imageUrl}}' alt='' />
+{{/if}}
+
+<hr />
+<a href='/books'>Back</a>
+
+<h3>REVIEWS</h3>
+
+{{#each reviews}}
+  <p>{{comment}}</p>
+  <span>{{user}}</span>
+{{/each}}
+
+<h2>Add a review</h2>
+
+<form action='/reviews/add/{{id}}' method='POST'>
+  <label>User:</label>
+  <input type='text' name='user' />
+
+  <label>Comment:</label>
+  <textarea name='comment' cols='50' rows='5'></textarea>
+  <button type='submit'>Add review</button>
+</form>

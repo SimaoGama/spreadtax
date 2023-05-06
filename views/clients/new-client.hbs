@@ -1,0 +1,85 @@
+<div class='container'>
+  <h1>New Client</h1>
+
+  <form novalidate action='/signup' method='POST'>
+
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='text'
+        name='companyName'
+        placeholder='username'
+        required
+      />
+      <label for=''>Company:</label>
+    </div>
+
+    <br />
+
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='email'
+        name='email'
+        placeholder='email'
+        required
+      />
+      <label for='email'>Email:</label>
+    </div>
+    <br />
+
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='password'
+        name='password'
+        placeholder='password'
+        required
+      />
+      <label for='password'>Password:</label>
+    </div>
+    <br />
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='text'
+        minlength='9'
+        maxlength='9'
+        name='nipc'
+        required
+      />
+      <label for='password'>NIF:</label>
+    </div>
+    <br />
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='text'
+        minlength='11'
+        maxlength='11'
+        name='niss'
+        required
+      />
+      <label for='password'>NISS:</label>
+    </div>
+    <br />
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='text'
+        name='address'
+        placeholder='address'
+        required
+      />
+      <label for='address'>Address:</label>
+    </div>
+    <br />
+    <button class='btn btn-primary' type='submit'>Register</button>
+  </form>
+</div>
+
+{{#if errorMessage}}
+  <div style='color: red'>
+    {{errorMessage}}
+  </div>
+{{/if}}

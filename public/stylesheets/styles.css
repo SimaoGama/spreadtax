@@ -1,0 +1,51 @@
+body {
+  background-image: url('/images/background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container .col {
+  padding: 3rem 2rem;
+}
+
+.navbar-brand {
+  font-size: 35px;
+  text-shadow: 1px 1px #0163c4c7;
+}
+.navbar-brand span {
+  color: rgba(255, 94, 0, 0.916);
+  font-size: 35px;
+  text-shadow: 1px 1px #0163c4c7;
+}
+
+.navbar-nav {
+  font-size: 25px;
+}
+
+.section-padding {
+  padding: 100px 0;
+}
+
+.carousel-item {
+  height: 100vh;
+  min-height: 300px;
+}
+
+.carousel-caption {
+  bottom: 400px;
+  z-index: 2;
+}
+
+.carousel-caption h5 {
+  font-size: 70px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 25px;
+  text-shadow: 2px 2px #000000c7;
+}
+.carousel-caption p {
+  width: 60%;
+  margin: auto;
+  font-size: 18px;
+  line-height: 1.9;
+}

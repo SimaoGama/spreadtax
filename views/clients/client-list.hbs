@@ -1,0 +1,22 @@
+<h1>Clients</h1>
+
+{{#if currentUser}}
+
+  <ul>
+    {{#each user}}
+      {{#each this.userClients}}
+
+        <li>
+          <h2>
+            <a href='/clients/{{_id}}'>{{this.companyName}}</a>
+          </h2>
+          <p>Address: {{this.address}}</p>
+          <p>NIPC: {{this.nipc}}</p>
+          <p>NISS: {{this.niss}}</p>
+        </li>
+
+      {{/each}}
+    {{/each}}
+  </ul>
+
+{{/if}}

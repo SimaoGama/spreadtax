@@ -1,0 +1,18 @@
+<h1>Books</h1>
+<ul>
+  {{#each books}}
+
+    <h2>
+      <a href='/books/{{id}}'>{{title}}</a>
+    </h2>
+    <h3> <i>by {{author.name}}</i> </h3>
+    <li>
+
+      <p>
+        {{description}}
+      </p>
+    </li>
+    <p>Rating:{{rating}}</p>
+
+  {{/each}}
+</ul>

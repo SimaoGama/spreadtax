@@ -1,0 +1,27 @@
+<h1>Create new book</h1>
+
+<form action='/books/create' method='POST' enctype='multipart/form-data'>
+  <label>Title</label>
+  <input type='text' name='title' />
+
+  <label>Author</label>
+  {{! <input type='text' name='author' /> }}
+  <select name='author'>
+    <option value=''>Choose an author</option>
+    {{#each authors}}
+      <option value='{{id}}'>{{name}}</option>
+    {{/each}}
+  </select>
+
+  <label>Description</label>
+  <textarea name='description' cols='30' rows='4'></textarea>
+
+  <label>Rating</label>
+  <input type='number' name='rating' min='1' max='10' />
+
+  <label for=''>Image</label>
+  <input type='file' name='image' />
+
+  <button type='submit'>Submit new book</button>
+
+</form>

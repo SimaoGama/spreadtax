@@ -1,0 +1,82 @@
+<div class='container'>
+  <br />
+  <form novalidate action='/signup' method='POST'>
+
+    <label class='form-check-label'>Free</label>
+    <input
+      class='form-check-input'
+      type='radio'
+      name='accountType'
+      value='isFree'
+      checked='true'
+    />
+
+    <label class='form-check-label'>Premium</label>
+    <input
+      class='form-check-input'
+      type='radio'
+      name='accountType'
+      value='isPremium'
+    />
+
+    <label class='form-check-label'>Unlimited</label>
+    <input
+      class='form-check-input'
+      type='radio'
+      name='accountType'
+      value='isUnlimited'
+    />
+
+    <hr />
+
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='text'
+        name='username'
+        placeholder='username'
+        required
+      />
+      <label for='username'>Username:</label>
+    </div>
+    <br />
+
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='email'
+        name='email'
+        placeholder='email'
+        required
+      />
+      <label for='email'>Email:</label>
+    </div>
+    <br />
+
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='password'
+        name='password'
+        placeholder='password'
+        required
+      />
+      <label for='password'>Password:</label>
+    </div>
+    <br />
+    <button class='btn btn-primary rounded-pill' type='submit'>Register</button>
+  </form>
+</div>
+
+{{#if errorMessage}}
+  <div style='color: red'>
+    {{errorMessage}}
+  </div>
+{{/if}}
+
+<script>
+  const form = document.querySelector("form"); const inputs =
+  form.querySelectorAll("div"); form.addEventListener("submit", e =>{
+  if(!form.checkValidity()){ e.preventDefault() } inputs.forEach((input) => {
+  input.classList.add("was-validated"); }); })
+</script>
