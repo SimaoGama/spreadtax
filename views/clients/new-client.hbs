@@ -1,7 +1,7 @@
 <div class='container'>
   <h1>New Client</h1>
 
-  <form novalidate action='/signup' method='POST'>
+  <form novalidate action='/clients/new' method='POST'>
 
     <div class='form-floating'>
       <input
@@ -79,7 +79,9 @@
 </div>
 
 {{#if errorMessage}}
-  <div style='color: red'>
-    {{errorMessage}}
+  <div class='alert alert-danger' role='alert'>
+    <div style='color: red'>
+      {{errorMessage}}
+    </div>
   </div>
 {{/if}}
