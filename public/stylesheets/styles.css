@@ -49,3 +49,12 @@ body {
   font-size: 18px;
   line-height: 1.9;
 }
+
+.pricing {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* .boxed {
+  box-shadow: 0px 0px 50px #a0a0a0;
+} */
