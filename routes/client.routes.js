@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 
 router.get('/clients/new', async (req, res) => {
   const user = await User.findById(req.session.currentUser._id);
-
+  console.log(user.userClients);
   // check for account type
   if (!req.session.currentUser || !user) {
     res.redirect('/login');
@@ -24,13 +24,6 @@ router.get('/clients/new', async (req, res) => {
 router.post('/clients/new', async (req, res) => {
   //current logged User landfinance2
   const { companyName, email, password, nipc, niss, address } = req.body;
-
-  //   if (!companyName || !email || !password || !nipc || !niss) {
-  //     res.render('clients/new-client', {
-  //       errorMessage: 'Fill in all mandatory fields'
-  //     });
-  //     return;
-  //   }
 
   const regex = /(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
@@ -75,6 +68,45 @@ router.get('/clients/:id', async (req, res) => {
   const clientId = req.params.id;
   const client = await Client.findById(clientId);
   res.render('clients/client-details', client);
+});
+
+router.post('/clients/edit', async (req, res) => {
+  const { companyName, email, nipc, niss, address } = req.body;
+
+  await Client.findByIdAndUpdate(req.query.id, {
+    companyName,
+    email,
+    nipc,
+    niss,
+    address
+  });
+
+  res.redirect(`/clients/${req.query.id}`);
+});
+
+router.get('/clients/:id/edit', async (req, res) => {
+  const client = await Client.findById(req.params.id);
+
+  res.render('clients/client-edit', { client });
+});
+
+router.post('/clients/:id/delete', async (req, res) => {
+  const currentUser = await User.findById(req.session.currentUser._id);
+  const deletedClient = await Client.findByIdAndDelete(req.params.id);
+
+  try {
+    const index = currentUser.userClients.indexOf(deletedClient._id);
+    if (index > -1) {
+      currentUser.userClients.splice(index, 1);
+    }
+
+    await currentUser.save();
+    console.log(`Client with ID ${req.params.id} deleted successfully`);
+
+    res.redirect(`/user/dashboard`);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 module.exports = router;

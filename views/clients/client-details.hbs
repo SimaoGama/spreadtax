@@ -1,13 +1,17 @@
 <h1>{{this.companyName}}</h1>
 <hr />
-
-<a href='/clients/edit/{{id}}' style='font-size: large;'>Edit Client</a>
+<a
+  type='button'
+  class='btn btn-secondary btn-default'
+  href='/user/dashboard'
+>Back</a>
 
 <br />
 <br />
 {{#if currentUser}}
 
-  <p> <b>Address:</b> {{this.address}}</p>
+  <p><b>Address:</b> {{this.address}}</p>
+  <p><b>Email:</b> {{this.email}}</p>
   <p><b>NIPC:</b> {{this.nipc}}</p>
   <p><b>NISS:</b> {{this.niss}}</p>
 
@@ -26,8 +30,9 @@
 {{/if}}
 
 <hr />
+
 <a
   type='button'
   class='btn btn-secondary btn-default'
-  href='/user/dashboard'
->Back</a>
+  href='/clients/{{id}}/edit'
+>Edit Client</a>
