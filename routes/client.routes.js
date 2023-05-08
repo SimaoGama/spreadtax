@@ -6,16 +6,16 @@ const bcrypt = require('bcryptjs');
 
 router.get('/clients/new', async (req, res) => {
   const user = await User.findById(req.session.currentUser._id);
-  console.log(user.userClients.length);
-  console.log(user.accountType);
+
+  // check for account type
   if (!req.session.currentUser || !user) {
     res.redirect('/login');
   } else {
-    if (user.accountType.isFree && user.userClients.length === 2) {
-      console.log('error');
+    if (user.accountType.isFree && user.userClients.length >= 2) {
+      res.redirect('/');
+    } else if (user.accountType.isPremium && user.userClients.length >= 4) {
       res.redirect('/');
     } else {
-      console.log('success');
       res.render('clients/new-client');
     }
   }
