@@ -1,38 +1,44 @@
-<h1>{{this.companyName}}</h1>
-<hr />
-<a
-  type='button'
-  class='btn btn-secondary btn-default'
-  href='/user/dashboard'
->Back</a>
+<div class='container-fluid'>
+  <hr />
 
-<br />
-<br />
-{{#if currentUser}}
+  <a
+    type='button'
+    class='btn btn-secondary btn-default btn-colors'
+    href='/user/dashboard'
+  >Back</a>
 
-  <p><b>Address:</b> {{this.address}}</p>
-  <p><b>Email:</b> {{this.email}}</p>
-  <p><b>NIPC:</b> {{this.nipc}}</p>
-  <p><b>NISS:</b> {{this.niss}}</p>
+  <a
+    type='button'
+    class='btn btn-secondary btn-default'
+    href='/clients/{{id}}/edit'
+  >Edit Client</a>
+  <br />
+  <br />
 
-{{else}}
-  <p>No clients found.</p>
-{{/if}}
+  {{#if currentUser}}
+    <h2>{{this.companyName}}</h2>
+    <br />
+    <p><b>Address:</b> {{this.address}}</p>
+    <p><b>Email:</b> {{this.email}}</p>
+    <p><b>NIPC:</b> {{this.nipc}}</p>
+    <p><b>NISS:</b> {{this.niss}}</p>
 
-{{!-- <form action='/books/delete/{{id}}' method='POST'>
+  {{else}}
+    <p>No clients found.</p>
+  {{/if}}
+
+  {{!-- <form action='/books/delete/{{id}}' method='POST'>
   <button>
     Delete
   </button>
 </form> --}}
 
-{{#if imageUrl}}
-  <img src='{{imageUrl}}' alt='' />
-{{/if}}
+  {{#if imageUrl}}
+    <img src='{{imageUrl}}' alt='' />
+  {{/if}}
 
-<hr />
-
-<a
-  type='button'
-  class='btn btn-secondary btn-default'
-  href='/clients/{{id}}/edit'
->Edit Client</a>
+  <hr />
+</div>
+<div class='container-fluid'>
+  <h1>Dashboard</h1>
+</div>

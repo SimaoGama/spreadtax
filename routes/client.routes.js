@@ -25,14 +25,7 @@ router.post('/clients/new', async (req, res) => {
   //current logged User landfinance2
   const { companyName, email, password, nipc, niss, address } = req.body;
 
-  if (
-    companyName === '' ||
-    email === '' ||
-    password === '' ||
-    nipc === '' ||
-    niss === '' ||
-    address === ''
-  ) {
+  if (!companyName || !email || !password || !nipc || !niss || !address) {
     res.render('auth/signup', { errorMessage: 'Fill in all fields' });
     return;
   }
@@ -44,15 +37,28 @@ router.post('/clients/new', async (req, res) => {
     return;
   }
 
-  const clientNipc = await Client.findOne({ nipc });
-  if (clientNipc !== null) {
+  const user = await User.findById(req.session.currentUser._id).populate(
+    'userClients'
+  );
+
+  const desiredUsername = req.body.companyName;
+  if (user.userClients.some(client => client.companyName === desiredUsername)) {
+    res.render('clients/new-client', {
+      errorMessage: 'Username already registered'
+    });
+    return;
+  }
+
+  const clientNipc = await Client.findOne(user.userClients.nipc);
+  if (user.userClients.includes(clientNipc)) {
     res.render('clients/new-client', {
       errorMessage: 'NIPC already registered'
     });
     return;
   }
-  const clientNiss = await Client.findOne({ niss });
-  if (clientNiss !== null) {
+
+  const clientNiss = await Client.findOne(user.userClients.niss);
+  if (user.userClients.includes(clientNiss)) {
     res.render('clients/new-client', {
       errorMessage: 'NISS already registered'
     });
@@ -62,14 +68,6 @@ router.post('/clients/new', async (req, res) => {
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync('1234', salt);
-
-  //   const client = await Client.findOne({ companyName });
-  //   if (client !== null) {
-  //     res.render('clients/new-client', {
-  //       errorMessage: 'Username already exists'
-  //     });
-  //     return;
-  //   }
 
   const newClient = await Client.create({
     companyName,

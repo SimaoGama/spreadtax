@@ -14,73 +14,75 @@
     <link rel='stylesheet' href='/stylesheets/styles.css' />
   </head>
 
-  <nav class='navbar navbar-expand bg-light'>
-    <div class='container'>
-      <a class='navbar-brand text-uppercase' href='/'>
-        Spread<span><i>tax</i></span>
-      </a>
-      <button
-        class='navbar-toggler'
-        type='button'
-        data-bs-toggle='collapse'
-        data-bs-target='#navbarNavAltMarkup'
-        aria-controls='navbarNavAltMarkup'
-        aria-expanded='false'
-        aria-label='Toggle navigation'
-      >
-        <span class='navbar-toggler-icon'></span>
-      </button>
-      <div
-        class='collapse navbar-collapse navbar-expand-lg navbar-light'
-        id='navbarNavAltMarkup'
-      >
+  <header>
+    <nav class='navbar navbar-expand bg-light fixed-top'>
+      <div class='container'>
+        <a class='navbar-brand text-uppercase' href='/'>
+          Spread<span><i>tax</i></span>
+        </a>
+        <button
+          class='navbar-toggler'
+          type='button'
+          data-bs-toggle='collapse'
+          data-bs-target='#navbarNavAltMarkup'
+          aria-controls='navbarNavAltMarkup'
+          aria-expanded='false'
+          aria-label='Toggle navigation'
+        >
+          <span class='navbar-toggler-icon'></span>
+        </button>
+        <div
+          class='collapse navbar-collapse navbar-expand-lg navbar-light'
+          id='navbarNavAltMarkup'
+        >
 
-        <div class='navbar-nav ms-auto mb-2 mb-lg-0'>
-          <a class='nav-link active' aria-current='page' href='/'>Home</a>
-          <a class='nav-link' href='/#about'>About Us</a>
-          <a class='nav-link' href='/#plans'>Pricing</a>
+          <div class='navbar-nav ms-auto mb-2 mb-lg-0'>
+            <a class='nav-link active' aria-current='page' href='/'>Home</a>
+            <a class='nav-link' href='/#about'>About Us</a>
+            <a class='nav-link' href='/#plans'>Pricing</a>
 
-          {{#if currentUser}}
-            <a class='nav-link'>
-              Hello
-              {{currentUser.username}}
-            </a>
-            <a class='nav-link' href='/user/dashboard'>Dashboard</a>
-          {{/if}}
-
-          <a class='nav-link'>
             {{#if currentUser}}
-              {{#if currentUser.accountType.isFree}}
-                <p>Free account</p>
-              {{/if}}
-
-              {{#if currentUser.accountType.isPremium}}
-                <p>Premium account</p>
-              {{/if}}
-
-              {{#if currentUser.accountType.isUnlimited}}
-                <p>Unlimited account</p>
-              {{/if}}
+              <a class='nav-link'>
+                Hello
+                {{currentUser.username}}
+              </a>
+              <a class='nav-link' href='/user/dashboard'>Dashboard</a>
             {{/if}}
-          </a>
-          {{#unless currentUser}}
-            <a class='nav-link' href='/signup'>Register</a>
-            <a class='nav-link' href='/login'>Login</a>
-          {{/unless}}
-          {{#if currentUser}}
+
             <a class='nav-link'>
-              <form action='/logout' method='POST'>
-                <button
-                  class='btn btn-secondary btn-colors'
-                  type='sumbmit'
-                >Logout</button>
-              </form>
+              {{#if currentUser}}
+                {{#if currentUser.accountType.isFree}}
+                  <p>Free account</p>
+                {{/if}}
+
+                {{#if currentUser.accountType.isPremium}}
+                  <p>Premium account</p>
+                {{/if}}
+
+                {{#if currentUser.accountType.isUnlimited}}
+                  <p>Unlimited account</p>
+                {{/if}}
+              {{/if}}
             </a>
-          {{/if}}
+            {{#unless currentUser}}
+              <a class='nav-link' href='/signup'>Register</a>
+              <a class='nav-link' href='/login'>Login</a>
+            {{/unless}}
+            {{#if currentUser}}
+              <a class='nav-link'>
+                <form action='/logout' method='POST'>
+                  <button
+                    class='btn btn-secondary btn-colors'
+                    type='sumbmit'
+                  >Logout</button>
+                </form>
+              </a>
+            {{/if}}
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <body>
 

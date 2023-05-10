@@ -2,11 +2,12 @@ body {
   background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
+  padding-top: 96px; /* fix nav padding */
 }
 
-.container .col {
+/* .container .col {
   padding: 3rem 2rem;
-}
+} */
 
 .navbar-brand {
   font-size: 35px;

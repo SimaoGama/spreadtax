@@ -1,25 +1,27 @@
-<h1>Dashboard</h1>
-<br />
-<h2>Client list</h2>
+<div class='container-fluid'>
+  <h1>Dashboard</h1>
+  <br />
+  <h2>Client list</h2>
 
-{{#if currentUser}}
+  {{#if currentUser}}
 
-  {{#each user}}
-    {{#each this.userClients}}
+    {{#each user}}
+      {{#each this.userClients}}
 
-      <h2>
-        <a
-          type='button'
-          class='btn btn-primary btn-default'
-          href='/clients/{{_id}}'
-        >{{this.companyName}}</a>
-      </h2>
-      <p>Address: {{this.address}}</p>
-      <p>Email: {{this.email}}</p>
-      <p>NIPC: {{this.nipc}}</p>
-      <p>NISS: {{this.niss}}</p>
+        <h2>
+          <a
+            type='button'
+            class='btn btn-primary btn-default btn-colors'
+            href='/clients/{{_id}}'
+          >{{this.companyName}}</a>
+        </h2>
+        <p>Address: {{this.address}}</p>
+        <p>Email: {{this.email}}</p>
+        <p>NIPC: {{this.nipc}}</p>
+        <p>NISS: {{this.niss}}</p>
 
+      {{/each}}
     {{/each}}
-  {{/each}}
 
-{{/if}}
+  {{/if}}
+</div>
