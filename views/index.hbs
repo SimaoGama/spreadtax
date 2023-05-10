@@ -84,12 +84,27 @@
 <div class='container about' id='about'>
   <div class='container pricing' id='plans'>
     <div class='row justify-content-center'>
-      <div class='col-md-4'>
 
-      </div>
+      <h2 class='card-header text-center'>About Us</h2>
+      <article style='width: 200%;text-align:center'>Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.</article>
+
     </div>
   </div>
 </div>
+
 <div class='container pricing' id='plans'>
   <div class='row justify-content-center'>
     <div class='col-md-4 boxed'>
@@ -110,7 +125,10 @@
               <b>Unlimited Plan</b></li>
           </ul>
           <div class='text-center mt-3'>
-            <a href='#' class='btn btn-primary'>Choose Plan</a>
+            <a
+              href='/auth/signup?value=isFree'
+              class='btn btn-primary btn-colors'
+            >Choose Basic Plan</a>
           </div>
         </div>
       </div>
@@ -133,7 +151,10 @@
               <b>Unlimited Plan</b></li>
           </ul>
           <div class='text-center mt-3'>
-            <a href='#' class='btn btn-primary'>Choose Plan</a>
+            <a
+              href='/auth/signup?value=isPremium'
+              class='btn btn-primary btn-colors'
+            >Choose Premium Plan</a>
           </div>
         </div>
       </div>
@@ -156,10 +177,20 @@
               Dedicated Email Server</li>
           </ul>
           <div class='text-center mt-3'>
-            <a href='/auth/sigup' class='btn btn-primary'>Choose Plan</a>
+            <a
+              href='/auth/signup?value=isUnlimited'
+              class='btn btn-primary btn-colors'
+            >Choose Ultimate Plan</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  const planLinks = document.querySelectorAll('.plan-link');
+  planLinks.forEach(link => { link.addEventListener('click', (event) => {
+  event.preventDefault(); const selectedPlan = link.dataset.plan;
+  window.location.href = `/auth/signup?plan=${selectedPlan}`; }); });
+</script>

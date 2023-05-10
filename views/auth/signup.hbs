@@ -2,31 +2,36 @@
   <br />
   <form novalidate action='/signup' method='POST'>
 
-    <label class='form-check-label'>Free Account</label>
-    <input
-      class='form-check-input'
-      type='radio'
-      name='accountType'
-      value='isFree'
-      checked='true'
-    />
-
-    <label class='form-check-label'>Premium Account</label>
-    <input
-      class='form-check-input'
-      type='radio'
-      name='accountType'
-      value='isPremium'
-    />
-
-    <label class='form-check-label'>Unlimited Account</label>
-    <input
-      class='form-check-input'
-      type='radio'
-      name='accountType'
-      value='isUnlimited'
-    />
-
+    <div class='d-flex justify-content-around' data-toggle='buttons'>
+      <label class='btn btn-primary active btn-custom'>
+        <input
+          type='radio'
+          name='accountType'
+          value='isFree'
+          autocomplete='off'
+          checked
+        />
+        Free Account
+      </label>
+      <label class='btn btn-primary'>
+        <input
+          type='radio'
+          name='accountType'
+          value='isPremium'
+          autocomplete='off'
+        />
+        Premium Account
+      </label>
+      <label class='btn btn-primary'>
+        <input
+          type='radio'
+          name='accountType'
+          value='isUnlimited'
+          autocomplete='off'
+        />
+        Unlimited Account
+      </label>
+    </div>
     <hr />
 
     <div class='form-floating'>
@@ -77,8 +82,12 @@
 {{/if}}
 
 <script>
-  const form = document.querySelector("form"); const inputs =
-  form.querySelectorAll("div"); form.addEventListener("submit", e =>{
-  if(!form.checkValidity()){ e.preventDefault() } inputs.forEach((input) => {
+  const urlParams = new URLSearchParams(window.location.search); const value =
+  urlParams.get('value'); const radioButton =
+  document.querySelector(`input[name="accountType"][value="${value}"]`); if
+  (radioButton) { radioButton.checked = true; } const form =
+  document.querySelector("form"); const inputs = form.querySelectorAll("div");
+  form.addEventListener("submit", e =>{ if(!form.checkValidity()){
+  e.preventDefault() } inputs.forEach((input) => {
   input.classList.add("was-validated"); }); })
 </script>

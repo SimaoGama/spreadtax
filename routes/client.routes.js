@@ -25,10 +25,37 @@ router.post('/clients/new', async (req, res) => {
   //current logged User landfinance2
   const { companyName, email, password, nipc, niss, address } = req.body;
 
+  if (
+    companyName === '' ||
+    email === '' ||
+    password === '' ||
+    nipc === '' ||
+    niss === '' ||
+    address === ''
+  ) {
+    res.render('auth/signup', { errorMessage: 'Fill in all fields' });
+    return;
+  }
+
   const regex = /(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
   if (regex.test(password) === false) {
     res.render('clients/new-client', { errorMessage: 'Password is too weak' });
+    return;
+  }
+
+  const clientNipc = await Client.findOne({ nipc });
+  if (clientNipc !== null) {
+    res.render('clients/new-client', {
+      errorMessage: 'NIPC already registered'
+    });
+    return;
+  }
+  const clientNiss = await Client.findOne({ niss });
+  if (clientNiss !== null) {
+    res.render('clients/new-client', {
+      errorMessage: 'NISS already registered'
+    });
     return;
   }
 

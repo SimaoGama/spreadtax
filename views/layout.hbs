@@ -37,7 +37,7 @@
 
         <div class='navbar-nav ms-auto mb-2 mb-lg-0'>
           <a class='nav-link active' aria-current='page' href='/'>Home</a>
-          <a class='nav-link' href='#about'>About Us</a>
+          <a class='nav-link' href='/#about'>About Us</a>
           <a class='nav-link' href='/#plans'>Pricing</a>
 
           {{#if currentUser}}
@@ -70,7 +70,10 @@
           {{#if currentUser}}
             <a class='nav-link'>
               <form action='/logout' method='POST'>
-                <button class='btn btn-secondary' type='sumbmit'>Logout</button>
+                <button
+                  class='btn btn-secondary btn-colors'
+                  type='sumbmit'
+                >Logout</button>
               </form>
             </a>
           {{/if}}

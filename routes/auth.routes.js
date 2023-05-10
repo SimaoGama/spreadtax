@@ -6,8 +6,20 @@ const bodyParser = require('body-parser');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
-router.get('/signup', (req, res) => {
+/* router.get('/signup', (req, res) => {
   res.render('auth/signup');
+});
+
+ router.get('/signup', (req, res) => {
+  const selectedPlan = req.query.plan || '';
+  res.render('auth/signup', { selectedPlan });
+}); */
+
+router.get('/auth/signup', (req, res) => {
+  let accountType = req.query.value || 'isFree'; // set default value to 'isFree' if no value is provided
+
+  // Render the form with the preselected radio button based on the accountType value
+  res.render('auth/signup', { accountType });
 });
 
 router.post('/signup', async (req, res) => {

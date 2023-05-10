@@ -54,7 +54,32 @@ body {
   margin-top: 50px;
   margin-bottom: 50px;
 }
+/* .boxed {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+} */
+.boxede {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
 /* .boxed {
   box-shadow: 0px 0px 50px #a0a0a0;
 } */
+
+.btn-custom {
+  background-color: #f16225;
+  color: #ffffff;
+}
+
+.btn-colors {
+  transition: transform 0.2s;
+  border-color: #f16225;
+  background-color: #f16225;
+  color: #ffffff;
+}
+
+.btn-colors:hover {
+  border-color: azure;
+  transform: scale(1.2);
+  color: #f16225;
+  background-color: azure;
+}

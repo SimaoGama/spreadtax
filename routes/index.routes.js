@@ -12,4 +12,9 @@ router.get('/#plans', (req, res, next) => {
   res.render('index', { currentUser });
 });
 
+router.get('/#about', (req, res, next) => {
+  const currentUser = req.session.currentUser;
+  res.render('index', { currentUser });
+});
+
 module.exports = router;
