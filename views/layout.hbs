@@ -14,10 +14,10 @@
     <link rel='stylesheet' href='/stylesheets/styles.css' />
   </head>
 
-  <header>
-    <nav class='navbar navbar-expand bg-light fixed-top'>
+  <header data-bs-theme='light'>
+    <nav data-bs-theme='light' class='navbar navbar-expand bg-white fixed-top'>
       <div class='container'>
-        <a class='navbar-brand text-uppercase' href='/'>
+        <a class='title navbar-brand text-uppercase' href='/'>
           Spread<span><i>tax</i></span>
         </a>
         <button
@@ -42,14 +42,35 @@
             <a class='nav-link' href='/#plans'>Pricing</a>
 
             {{#if currentUser}}
-              <a class='nav-link'>
-                Hello
-                {{currentUser.username}}
-              </a>
               <a class='nav-link' href='/user/dashboard'>Dashboard</a>
+
+              <li class='nav-item dropdown user-info'>
+                <a
+                  class='nav-link dropdown-toggle'
+                  href='#'
+                  id='navbarDropdown'
+                  role='button'
+                  data-toggle='dropdown'
+                  aria-haspopup='true'
+                  aria-expanded='false'
+                >
+                  Hello
+                  {{currentUser.username}}
+                </a>
+                <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                  <a class='dropdown-item' href='/user/dashboard'>Dashboard</a>
+                  <a class='dropdown-item' href='/clients/new'>Add client</a>
+                  <div class='dropdown-divider'></div>
+                  <a
+                    class='dropdown-item'
+                    href='/user/{{currentUser._id}}'
+                  >Settings</a>
+                </div>
+              </li>
+
             {{/if}}
 
-            <a class='nav-link'>
+            <a class='nav-link user-info'>
               {{#if currentUser}}
                 {{#if currentUser.accountType.isFree}}
                   <p>Free account</p>
@@ -79,12 +100,23 @@
               </a>
             {{/if}}
           </div>
+          <div class='form-check form-switch mx-4'>
+            Dark theme
+            <input
+              class='form-check-input p-2'
+              type='checkbox'
+              role='switch'
+              id='flexSwithCheckChecked'
+              unchecked
+              onclick='activateDarkMode()'
+            />
+          </div>
         </div>
       </div>
     </nav>
   </header>
 
-  <body>
+  <body data-bs-theme='light'>
 
     {{{body}}}
 
@@ -93,6 +125,7 @@
       src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js'
     ></script>
     <script src='/js/script.js'></script>
+
   </body>
 
 </html>
