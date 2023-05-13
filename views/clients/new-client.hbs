@@ -1,7 +1,12 @@
 <div class='container'>
   <h1>New Client</h1>
 
-  <form novalidate action='/clients/new' method='POST'>
+  <form
+    novalidate
+    action='/clients/new'
+    method='POST'
+    enctype='multipart/form-data'
+  >
 
     <div class='form-floating'>
       <input
@@ -74,6 +79,15 @@
       <label for='address'>Address:</label>
     </div>
     <br />
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='file'
+        name='image'
+        placeholder='image'
+      />
+      <label for='address'>Company Image:</label>
+    </div>
     <button class='btn btn-primary' type='submit'>Register</button>
   </form>
 </div>

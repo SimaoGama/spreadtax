@@ -82,7 +82,7 @@ router.post('/signup', async (req, res) => {
     console.log('Unlimited');
   }
 
-  res.redirect('/');
+  res.redirect('/login');
 });
 
 router.get('/login', (req, res) => {

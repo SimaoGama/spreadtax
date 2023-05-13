@@ -3,6 +3,7 @@ const router = express.Router();
 const Client = require('../models/Client.model');
 const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
+const fileUpload = require('../config/cloudinary');
 
 router.get('/clients/new', async (req, res) => {
   const user = await User.findById(req.session.currentUser._id);
@@ -21,7 +22,11 @@ router.get('/clients/new', async (req, res) => {
   }
 });
 
-router.post('/clients/new', async (req, res) => {
+router.post('/clients/new', fileUpload.single('image'), async (req, res) => {
+  let fileUrlOnCloudinary = '';
+  if (req.file) {
+    fileUrlOnCloudinary = req.file.path;
+  }
   //current logged User landfinance2
   const { companyName, email, password, nipc, niss, address } = req.body;
 
@@ -75,9 +80,10 @@ router.post('/clients/new', async (req, res) => {
     password: hashedPassword,
     nipc,
     niss,
-    address
+    address,
+    imageUrl: fileUrlOnCloudinary
   });
-
+  console.log(fileUrlOnCloudinary);
   //Find current user
   const currentUser = await User.findById(req.session.currentUser._id);
 

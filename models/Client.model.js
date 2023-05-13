@@ -40,6 +40,10 @@ const clientSchema = new Schema(
       required: false,
       unique: false
     },
+    imageUrl: {
+      type: String,
+      required: false
+    },
     isAdmin: {
       type: Boolean,
       default: false
