@@ -2,29 +2,36 @@
   <div class='container-fluid'>
     <h1>Dashboard</h1>
     <br />
-    <h2>Client list</h2>
-    <br />
+    <div class='row'>
 
-    <div class='col-sm'>
-      {{#each user}}
-        {{#each this.userClients}}
-          <a
-            type='button'
-            class='btn btn-secondary btn-default'
-            href='/clients/{{_id}}'
-          >{{this.companyName}}
-          </a>
-          <br />
-          <br />
-        {{/each}}
-      {{/each}}
+      <div class='col'>
+        <h2>Client list</h2>
+        <br />
+        <div class='col-sm'>
+          {{#each user}}
+            {{#each this.userClients}}
+              <a
+                type='button'
+                class='btn btn-secondary btn-default'
+                href='/clients/{{_id}}'
+              >{{this.companyName}}
+              </a>
+              <br />
+              <br />
+            {{/each}}
+          {{/each}}
+        </div>
+        <a
+          type='button'
+          class='btn btn-secondary btn-default'
+          href='/clients/new'
+        >New Client
+        </a>
+      </div>
     </div>
-
-    <a
-      type='button'
-      class='btn btn-secondary btn-default'
-      href='/clients/new'
-    >New Client
-    </a>
+    <div class='col'>
+      <h2>Calendar</h2>
+    </div>
   </div>
+
 {{/if}}

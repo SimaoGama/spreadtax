@@ -39,4 +39,17 @@ router.get('/user/dashboard', async (req, res) => {
   }
 });
 
+router.get('/user/:id', async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  res.render('users/user-settings', user);
+});
+
+router.get('/user/:id/edit', async (req, res) => {
+  const user = await User.findById(req.params.id);
+  console.log(user);
+
+  res.render('users/user-edit', { user });
+});
+
 module.exports = router;

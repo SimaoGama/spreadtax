@@ -6,15 +6,17 @@ const bcrypt = require('bcryptjs');
 
 router.get('/clients/new', async (req, res) => {
   const user = await User.findById(req.session.currentUser._id);
-  console.log(user.userClients);
+
   // check for account type
   if (!req.session.currentUser || !user) {
     res.redirect('/login');
   } else {
     if (user.accountType.isFree && user.userClients.length >= 2) {
-      res.redirect('/');
+      // showModal = true;
+      res.redirect('/#plans');
     } else if (user.accountType.isPremium && user.userClients.length >= 4) {
-      res.redirect('/');
+      // showModal = true;
+      res.redirect('/#plans');
     } else {
       res.render('clients/new-client');
     }
@@ -37,30 +39,39 @@ router.post('/clients/new', async (req, res) => {
     return;
   }
 
-  const user = await User.findById(req.session.currentUser._id).populate(
-    'userClients'
-  );
+  const user = await User.findById(req.session.currentUser._id)
+    .populate('userClients')
+    .populate('nipc')
+    .populate('niss');
 
-  const desiredUsername = req.body.companyName;
-  if (user.userClients.some(client => client.companyName === desiredUsername)) {
+  const testUsername = req.body.companyName;
+  if (user.userClients.some(client => client.companyName === testUsername)) {
     res.render('clients/new-client', {
       errorMessage: 'Username already registered'
     });
     return;
   }
 
-  const clientNipc = await Client.findOne(user.userClients.nipc);
-  if (user.userClients.includes(clientNipc)) {
+  const testNipc = req.body.nipc;
+  if (user.userClients.some(client => client.nipc === testNipc)) {
     res.render('clients/new-client', {
       errorMessage: 'NIPC already registered'
     });
     return;
   }
 
-  const clientNiss = await Client.findOne(user.userClients.niss);
-  if (user.userClients.includes(clientNiss)) {
+  const testNiss = req.body.niss;
+  if (user.userClients.some(client => client.niss === testNiss)) {
     res.render('clients/new-client', {
       errorMessage: 'NISS already registered'
+    });
+    return;
+  }
+
+  const testEmail = req.body.email;
+  if (user.userClients.some(client => client.email === testEmail)) {
+    res.render('clients/new-client', {
+      errorMessage: 'Email already exists'
     });
     return;
   }

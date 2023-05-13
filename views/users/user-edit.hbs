@@ -1,0 +1,64 @@
+<div class='container'>
+  <h1>Edit user</h1>
+
+  <a
+    type='button'
+    class='btn btn-secondary btn-default'
+    href='/user/{{user.id}}'
+  >Back</a>
+  <hr />
+  <form novalidate action='/clients/edit?id={{user.id}}' method='POST'>
+
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='text'
+        name='companyName'
+        placeholder='username'
+        value='{{user.username}}'
+        required
+      />
+      <label for=''>{{user.username}}</label>
+    </div>
+
+    <br />
+
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='email'
+        name='email'
+        placeholder='email'
+        value='{{user.email}}'
+        required
+      />
+      <label for='email'>{{user.email}}</label>
+    </div>
+
+    <br />
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='text'
+        name='address'
+        placeholder='address'
+        value='{{user.address}}'
+        required
+      />
+      <label for='address'> {{user.address}} </label>
+    </div>
+
+    <br />
+
+    <button class='btn btn-lg btn-primary' type='submit'>Save changes</button>
+  </form>
+
+</div>
+
+{{#if errorMessage}}
+  <div class='alert alert-danger' role='alert'>
+    <div style='color: red'>
+      {{errorMessage}}
+    </div>
+  </div>
+{{/if}}

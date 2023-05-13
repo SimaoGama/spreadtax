@@ -84,22 +84,22 @@
 <div class='container about' id='about'>
   <div class='container pricing' id='plans'>
     <div class='row justify-content-center'>
+      <h1 class='card-header text-center text-uppercase'>About Us</h1>
 
-      <h2 class='card-header text-center'>About Us</h2>
-      <article style='width: 200%;text-align:center'>Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est
-        laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-        sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.</article>
+      <article class='mt-3' style='width: 200%;text-align:center'>Lorem ipsum
+        dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+        id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+        enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+        in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+        officia deserunt mollit anim id est laborum.</article>
 
     </div>
   </div>
@@ -117,6 +117,8 @@
           <ul class='list-group'>
             <li class='list-group-item'><i class='fas fa-check'></i>
               Optimized Client/Accountant Interface</li>
+            <li class='list-group-item'><i class='fas fa-check'></i>
+              Manage up to 2 Clients</li>
             <li class='list-group-item'><i class='fas fa-check'></i>
               Cloud Storage 10GB</li>
             <li class='list-group-item'><i class='fas fa-times'></i>
@@ -144,6 +146,8 @@
             <li class='list-group-item'><i class='fas fa-check'></i>
               Optimized Client/Accountant Interface</li>
             <li class='list-group-item'><i class='fas fa-check'></i>
+              Manage up to 4 Clients</li>
+            <li class='list-group-item'><i class='fas fa-check'></i>
               1TB Cloud Storage</li>
             <li class='list-group-item'><i class='fas fa-check'></i>
               Schedule Client Emails</li>
@@ -170,6 +174,8 @@
             <li class='list-group-item'><i class='fas fa-check'></i>
               Optimized Client/Accountant Interface</li>
             <li class='list-group-item'><i class='fas fa-check'></i>
+              Unlimited Clients</li>
+            <li class='list-group-item'><i class='fas fa-check'></i>
               2TB Storage</li>
             <li class='list-group-item'><i class='fas fa-check'></i>
               Schedule Client Emails</li>
@@ -186,6 +192,104 @@
       </div>
     </div>
   </div>
+
+  {{! login in the home page }}
+  <div class='container mt-5'>
+
+    <h1 class='card-header text-center text-uppercase'>Register Today</h1>
+    <br />
+    <hr />
+    <form novalidate action='/signup' method='POST'>
+
+      <div class='d-flex justify-content-around' data-toggle='buttons'>
+        <label class='btn btn-primary active btn-custom'>
+          <input
+            type='radio'
+            name='accountType'
+            value='isFree'
+            autocomplete='off'
+            checked
+          />
+          Free Account
+        </label>
+        <label class='btn btn-primary'>
+          <input
+            type='radio'
+            name='accountType'
+            value='isPremium'
+            autocomplete='off'
+          />
+          Premium Account
+        </label>
+        <label class='btn btn-primary'>
+          <input
+            type='radio'
+            name='accountType'
+            value='isUnlimited'
+            autocomplete='off'
+          />
+          Unlimited Account
+        </label>
+      </div>
+      <br />
+      <div class='form-floating'>
+        <input
+          class='form-control'
+          type='text'
+          name='username'
+          placeholder='username'
+          required
+        />
+        <label for='username'>Username:</label>
+      </div>
+      <br />
+
+      <div class='form-floating'>
+        <input
+          class='form-control'
+          type='email'
+          name='email'
+          placeholder='email'
+          required
+        />
+        <label for='email'>Email:</label>
+      </div>
+      <br />
+
+      <div class='form-floating'>
+        <input
+          class='form-control'
+          type='password'
+          name='password'
+          placeholder='password'
+          required
+        />
+        <label for='password'>Password:</label>
+      </div>
+      <br />
+      <button class='btn btn-primary rounded-pill' type='submit'>Register today</button>
+    </form>
+  </div>
+
+  {{#if errorMessage}}
+    <div class='alert alert-danger' role='alert'>
+      <div style='color: red'>
+        {{errorMessage}}
+      </div>
+    </div>
+  {{/if}}
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search); const value =
+    urlParams.get('value'); const radioButton =
+    document.querySelector(`input[name="accountType"][value="${value}"]`); if
+    (radioButton) { radioButton.checked = true; } const form =
+    document.querySelector("form"); const inputs = form.querySelectorAll("div");
+    form.addEventListener("submit", e =>{ if(!form.checkValidity()){
+    e.preventDefault() } inputs.forEach((input) => {
+    input.classList.add("was-validated"); }); })
+  </script>
+
 </div>
 
 <script>

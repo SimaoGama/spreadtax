@@ -2,9 +2,12 @@ body {
   background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 96px; /* fix nav padding */
+  padding-top: 90px; /* fix nav padding */
 }
 
+.title a {
+  font-size: 40px;
+}
 /* .container .col {
   padding: 3rem 2rem;
 } */
@@ -51,6 +54,15 @@ body {
   line-height: 1.9;
 }
 
+.container h1 {
+  font-size: 50px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 25px;
+
+  text-shadow: 1px 1px white;
+}
+
 .pricing {
   margin-top: 50px;
   margin-bottom: 50px;
@@ -83,4 +95,29 @@ body {
   transform: scale(1.2);
   color: #f16225;
   background-color: azure;
+}
+
+.user-info {
+  color: #f16225;
+  font-size: medium;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.carousel-caption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.carousel-caption h5 {
+  text-align: center;
 }
