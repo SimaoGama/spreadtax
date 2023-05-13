@@ -2,10 +2,9 @@ const { Schema, model } = require('mongoose');
 
 const fileSchema = new Schema({
   name: String,
-  file: {
-    data: Buffer,
-    contentType: String
-  }
+  month: String,
+  fileClient: [{ type: Schema.Types.ObjectId, ref: 'Client' }],
+  fileUrl: String
 });
 
 const File = model('File', fileSchema);

@@ -13,7 +13,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: 'projects',
-    allowedFormats: ['jpg', 'png', 'pdf', 'svg']
+    allowedFormats: ['jpg', 'png', 'pdf', 'svg', 'docx']
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);

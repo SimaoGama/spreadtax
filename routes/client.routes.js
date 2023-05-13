@@ -109,7 +109,23 @@ router.post('/clients/new', fileUpload.single('image'), async (req, res) => {
 router.get('/clients/:id', async (req, res) => {
   const clientId = req.params.id;
   const client = await Client.findById(clientId);
-  res.render('clients/client-details', client);
+
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  res.render('clients/client-details', { client, months });
 });
 
 router.post('/clients/edit', fileUpload.single('image'), async (req, res) => {

@@ -10,26 +10,30 @@
   <a
     type='button'
     class='btn btn-secondary btn-default'
-    href='/clients/{{id}}/edit'
+    href='/clients/{{client._id}}/edit'
   >Edit Client</a>
   <br />
   <br />
 
   {{#if currentUser}}
 
-    {{#if imageUrl}}
-      <img class='rounded-circle client-logo' src='{{imageUrl}}' alt='' />
+    {{#if client.imageUrl}}
+      <img
+        class='rounded-circle client-logo'
+        src='{{client.imageUrl}}'
+        alt=''
+      />
       <br />
       <br />
     {{/if}}
 
-    <h2>{{this.companyName}}</h2>
+    <h2>{{client.companyName}}</h2>
 
     <br />
-    <p><b>Address:</b> {{this.address}}</p>
-    <p><b>Email:</b> {{this.email}}</p>
-    <p><b>NIPC:</b> {{this.nipc}}</p>
-    <p><b>NISS:</b> {{this.niss}}</p>
+    <p><b>Address:</b> {{client.address}}</p>
+    <p><b>Email:</b> {{client.email}}</p>
+    <p><b>NIPC:</b> {{client.nipc}}</p>
+    <p><b>NISS:</b> {{client.niss}}</p>
 
   {{else}}
     <p>No clients found.</p>
@@ -99,16 +103,38 @@
         aria-labelledby='headingOne'
         data-parent='#accordionExample'
       >
-        <div class='card-body'>
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-          terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-          skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-          Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-          single-origin coffee nulla assumenda shoreditch et. Nihil anim
-          keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-          sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-          occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-          you probably haven't heard of them accusamus labore sustainable VHS.
+        <div class='card-body container'>
+          <div class='form-floating'>
+            <form
+              novalidate
+              method='POST'
+              action='/clients/{{client._id}}/hr/submit'
+              enctype='multipart/form-data'
+            >
+              <select
+                class='form-select'
+                name='month'
+                aria-label='Select month'
+                required
+              >
+                <option value=''>Select month</option>
+                {{#each months}}
+                  <option name='month' value='{{this}}'>{{this}}</option>
+                {{/each}}
+              </select>
+              <br />
+
+              <input
+                class='form-control'
+                type='file'
+                name='file'
+                placeholder='Files'
+                required
+              />
+              <br />
+              <button class='btn btn-primary' type='submit'>Submit</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
