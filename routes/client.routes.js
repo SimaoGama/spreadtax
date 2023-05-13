@@ -112,15 +112,17 @@ router.get('/clients/:id', async (req, res) => {
   res.render('clients/client-details', client);
 });
 
-router.post('/clients/edit', async (req, res) => {
+router.post('/clients/edit', fileUpload.single('image'), async (req, res) => {
   const { companyName, email, nipc, niss, address } = req.body;
+  const fileUrl = req.file ? req.file.path : null;
 
   await Client.findByIdAndUpdate(req.query.id, {
     companyName,
     email,
     nipc,
     niss,
-    address
+    address,
+    imageUrl: fileUrl
   });
 
   res.redirect(`/clients/${req.query.id}`);

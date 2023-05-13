@@ -121,3 +121,7 @@ body {
 .carousel-caption h5 {
   text-align: center;
 }
+
+.client-logo {
+  border: 6px outset #f16225c6;
+}

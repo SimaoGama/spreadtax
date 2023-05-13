@@ -16,7 +16,15 @@
   <br />
 
   {{#if currentUser}}
+
+    {{#if imageUrl}}
+      <img class='rounded-circle client-logo' src='{{imageUrl}}' alt='' />
+      <br />
+      <br />
+    {{/if}}
+
     <h2>{{this.companyName}}</h2>
+
     <br />
     <p><b>Address:</b> {{this.address}}</p>
     <p><b>Email:</b> {{this.email}}</p>
@@ -32,10 +40,6 @@
     Delete
   </button>
 </form> --}}
-
-  {{#if imageUrl}}
-    <img src='{{imageUrl}}' alt='' />
-  {{/if}}
 
   <hr />
 </div>

@@ -7,7 +7,12 @@
     href='/clients/{{client.id}}'
   >Back</a>
   <hr />
-  <form novalidate action='/clients/edit?id={{client.id}}' method='POST'>
+  <form
+    novalidate
+    action='/clients/edit?id={{client.id}}'
+    method='POST'
+    enctype='multipart/form-data'
+  >
 
     <div class='form-floating'>
       <input
@@ -77,8 +82,19 @@
     </div>
 
     <br />
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='file'
+        name='image'
+        placeholder='{{client.imageUrl}}'
+      />
+      <label for='companyImage'>Company Image:</label>
+      <br />
+    </div>
+    <br />
 
-    <button class='btn btn-lg btn-primary' type='submit'>Register</button>
+    <button class='btn btn-primary' type='submit'>Save</button>
   </form>
   <form
     action='/clients/{{client.id}}/delete'
