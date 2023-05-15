@@ -103,42 +103,75 @@
         aria-labelledby='headingOne'
         data-parent='#accordionExample'
       >
-        <div class='card-body container'>
-          <div class='form-floating'>
-            <form
-              novalidate
-              method='POST'
-              action='/clients/{{client._id}}/hr/submit'
-              enctype='multipart/form-data'
-            >
-              <select
-                class='form-select'
-                name='month'
-                aria-label='Select month'
-                required
-              >
-                <option value=''>Select month</option>
-                {{#each months}}
-                  <option name='month' value='{{this}}'>{{this}}</option>
-                {{/each}}
-              </select>
-              <br />
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='col'>
 
-              <input
-                class='form-control'
-                type='file'
-                name='file'
-                placeholder='Files'
-                required
-              />
-              <br />
-              <button class='btn btn-primary' type='submit'>Submit</button>
-            </form>
+              <div class='card-body'>
+                <h4 class='text-center'>Upload documents</h4>
+                {{! form HR }}
+                <div class='form-floating'>
+                  <form
+                    novalidate
+                    method='POST'
+                    action='/clients/{{client._id}}/hr/submit'
+                    enctype='multipart/form-data'
+                  >
+                    <select
+                      class='form-select'
+                      name='month'
+                      aria-label='Select month'
+                      required
+                    >
+                      <option value=''>Select month</option>
+                      {{#each months}}
+                        <option name='month' value='{{this}}'>{{this}}</option>
+                      {{/each}}
+                    </select>
+                    <br />
+
+                    <input
+                      class='form-control'
+                      type='file'
+                      name='file'
+                      placeholder='Files'
+                      required
+                    />
+                    <br />
+                    <button
+                      class='btn btn-primary'
+                      type='submit'
+                    >Submit</button>
+                  </form>
+                </div>
+              </div>
+              {{! end form }}
+            </div>
+
+            <div class='col'>
+              <div class='card-body'>
+                <h4 class='text-center'>Download documents</h4>
+                <select
+                  class='form-select'
+                  name='month'
+                  aria-label='Select month'
+                  required
+                >
+                  <option value=''>Select month</option>
+                  {{#each months}}
+                    <option name='month' value='{{this}}'>{{this}}</option>
+                  {{/each}}
+                </select>
+                <br />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
     <br />
+
     <div class='card'>
       <div class='card-header' id='headingTwo'>
         <h5 class='mb-0'>
@@ -154,26 +187,83 @@
           </button>
         </h5>
       </div>
+
       <div
         id='collapseTwo'
         class='collapse'
         aria-labelledby='headingTwo'
         data-parent='#accordionExample'
       >
-        <div class='card-body'>
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-          terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-          skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-          Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-          single-origin coffee nulla assumenda shoreditch et. Nihil anim
-          keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-          sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-          occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-          you probably haven't heard of them accusamus labore sustainable VHS.
+        {{! form MT }}
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='col'>
+
+              <div class='card-body'>
+                <h4 class='text-center'>Upload documents</h4>
+                {{! form HR }}
+                <div class='form-floating'>
+                  <form
+                    novalidate
+                    method='POST'
+                    action='/clients/{{client._id}}/hr/submit'
+                    enctype='multipart/form-data'
+                  >
+                    <select
+                      class='form-select'
+                      name='month'
+                      aria-label='Select month'
+                      required
+                    >
+                      <option value=''>Select month</option>
+                      {{#each months}}
+                        <option name='month' value='{{this}}'>{{this}}</option>
+                      {{/each}}
+                    </select>
+                    <br />
+
+                    <input
+                      class='form-control'
+                      type='file'
+                      name='file'
+                      placeholder='Files'
+                      required
+                    />
+                    <br />
+                    <button
+                      class='btn btn-primary'
+                      type='submit'
+                    >Submit</button>
+                  </form>
+                </div>
+              </div>
+              {{! end form }}
+            </div>
+
+            <div class='col'>
+              <div class='card-body'>
+                <h4 class='text-center'>Download documents</h4>
+                <select
+                  class='form-select'
+                  name='month'
+                  aria-label='Select month'
+                  required
+                >
+                  <option value=''>Select month</option>
+                  {{#each months}}
+                    <option name='month' value='{{this}}'>{{this}}</option>
+                  {{/each}}
+                </select>
+                <br />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     <br />
+
     <div class='card'>
       <div class='card-header' id='headingThree'>
         <h5 class='mb-0'>
@@ -195,16 +285,69 @@
         aria-labelledby='headingThree'
         data-parent='#accordionExample'
       >
-        <div class='card-body'>
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-          terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
-          skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-          Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
-          single-origin coffee nulla assumenda shoreditch et. Nihil anim
-          keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-          sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-          occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-          you probably haven't heard of them accusamus labore sustainable VHS.
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='col'>
+
+              <div class='card-body'>
+                <h4 class='text-center'>Upload documents</h4>
+                {{! form HR }}
+                <div class='form-floating'>
+                  <form
+                    novalidate
+                    method='POST'
+                    action='/clients/{{client._id}}/hr/submit'
+                    enctype='multipart/form-data'
+                  >
+                    <select
+                      class='form-select'
+                      name='month'
+                      aria-label='Select month'
+                      required
+                    >
+                      <option value=''>Select month</option>
+                      {{#each months}}
+                        <option name='month' value='{{this}}'>{{this}}</option>
+                      {{/each}}
+                    </select>
+                    <br />
+
+                    <input
+                      class='form-control'
+                      type='file'
+                      name='file'
+                      placeholder='Files'
+                      required
+                    />
+                    <br />
+                    <button
+                      class='btn btn-primary'
+                      type='submit'
+                    >Submit</button>
+                  </form>
+                </div>
+              </div>
+              {{! end form }}
+            </div>
+
+            <div class='col'>
+              <div class='card-body'>
+                <h4 class='text-center'>Download documents</h4>
+                <select
+                  class='form-select'
+                  name='month'
+                  aria-label='Select month'
+                  required
+                >
+                  <option value=''>Select month</option>
+                  {{#each months}}
+                    <option name='month' value='{{this}}'>{{this}}</option>
+                  {{/each}}
+                </select>
+                <br />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
