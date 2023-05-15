@@ -1,51 +1,81 @@
-<br />
-<div class='container'>
+<head>
+  <title>Transition</title>
+  <script
+    src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'
+  ></script>
+</head>
 
-  <div class='login'>
-    <label class='form-check-label'>Accountant</label>
-    <input class='form-check-input' type='radio' name='isAdmin' />
+<body>
 
-    <label class='form-check-label'>Client</label>
-    <input class='form-check-input' type='radio' name='isAdmin' />
+  <div id='animation'>
+    <lottie-player
+      src='https://assets3.lottiefiles.com/private_files/lf30_y1hMez.json'
+      background='transparent'
+      speed='1'
+      style='width: 600px; height: 600px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);'
+      loop
+      autoplay
+    ></lottie-player>
+  </div>
+  <br />
+  <div class='container' id='form' style='display: none;'>
 
-    <hr />
+    <div class='login'>
+      <label class='form-check-label'>Accountant</label>
+      <input class='form-check-input' type='radio' name='isAdmin' />
 
-    <form action='/login' method='POST'>
-      <div class='form-floating'>
-        <input
-          class='form-control'
-          type='text'
-          name='username'
-          placeholder='Username'
-          required
-        />
-        <label for=''>Username:</label>
+      <label class='form-check-label'>Client</label>
+      <input class='form-check-input' type='radio' name='isAdmin' />
+
+      <hr />
+
+      <form action='/login' method='POST'>
+        <div class='form-floating'>
+          <input
+            class='form-control'
+            type='text'
+            name='username'
+            placeholder='Username'
+            required
+          />
+          <label for=''>Username:</label>
+        </div>
+        <br />
+
+        <div class='form-floating'>
+          <input
+            class='form-control'
+            type='password'
+            name='password'
+            placeholder='Passsword'
+            required
+          />
+          <label for=''>Password:</label>
+        </div>
+        <br />
+
+        <button
+          class='btn btn-primary rounded-pill'
+          type='submit'
+        >Login</button>
+      </form>
+
+    </div>
+
+    {{#if errorMessage}}
+      <div class='alert alert-danger' role='alert'>
+        <div style='color: red'>
+          {{errorMessage}}
+        </div>
       </div>
-      <br />
-
-      <div class='form-floating'>
-        <input
-          class='form-control'
-          type='password'
-          name='password'
-          placeholder='Passsword'
-          required
-        />
-        <label for=''>Password:</label>
-      </div>
-      <br />
-
-      <button class='btn btn-primary rounded-pill' type='submit'>Login</button>
-    </form>
+    {{/if}}
 
   </div>
 
-  {{#if errorMessage}}
-    <div class='alert alert-danger' role='alert'>
-      <div style='color: red'>
-        {{errorMessage}}
-      </div>
-    </div>
-  {{/if}}
-
-</div>
+  <script>
+    setTimeout(function () { var animation =
+    document.getElementById('animation'); var form =
+    document.getElementById('form'); animation.style.display = 'none';
+    form.style.display = 'block'; }, 3000);
+  </script>
+</body>

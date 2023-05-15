@@ -54,6 +54,11 @@ function getCurrentLoggedUser(req, res, next) {
   next();
 }
 
+function loading(req, res, next) {
+  res.render('transition');
+  next();
+}
+
 const bodyParser = require('body-parser');
 //use the middleware
 app.use(getCurrentLoggedUser);

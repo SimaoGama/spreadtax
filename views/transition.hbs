@@ -1,14 +1,34 @@
-<body>
-  <script
-    src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'
-  ></script>
-  <lottie-player
-    src='https://assets3.lottiefiles.com/private_files/lf30_y1hMez.json'
-    background='transparent'
-    speed='1'
-    style='width: 300px; height: 300px;'
-    loop
-    controls
-    autoplay
-  ></lottie-player>
-</body>
+<html>
+  <head>
+    <title>Transition</title>
+    <script
+      src='https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js'
+    ></script>
+    <script>
+      // Delay the redirection to the login page by 3 seconds
+      setTimeout(function () { // Remove the animation and show the login form
+      var animation = document.getElementById('animation'); var form =
+      document.getElementById('form'); animation.style.display = 'none';
+      form.style.display = 'block'; }, 3000);
+    </script>
+  </head>
+  <body>
+    <div id='animation'>
+      <lottie-player
+        src='https://assets9.lottiefiles.com/datafiles/gUENLc1262ccKIO/data.json'
+        background='transparent'
+        speed='1'
+        style='width: 300px; height: 300px;'
+        loop
+        autoplay
+      ></lottie-player>
+    </div>
+    <div id='form' style='display: none;'>
+      <h1>Login</h1>
+      <form action='/login' method='post'>
+        <!-- Login form goes here -->
+        <input type='submit' value='Login' />
+      </form>
+    </div>
+  </body>
+</html>
