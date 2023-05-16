@@ -43,7 +43,10 @@
           id='navbarNavAltMarkup'
         >
 
-          <div class='navbar-nav ms-auto mb-2 mb-lg-0'>
+          <div
+            class='navbar-nav ms-auto mb-2 mb-lg-0'
+            style='margin-top: 15px; padding:5px;'
+          >
             <a class='nav-link active' aria-current='page' href='/'>Home</a>
             <a class='nav-link' href='/#about'>About Us</a>
             <a class='nav-link' href='/#plans'>Pricing</a>
@@ -60,6 +63,7 @@
                   data-toggle='dropdown'
                   aria-haspopup='true'
                   aria-expanded='false'
+                  style='font-size: 20px;'
                 >
                   Hello
                   {{currentUser.username}}
@@ -77,7 +81,7 @@
 
             {{/if}}
 
-            <a class='nav-link user-info'>
+            <a class='nav-link user-info' style='font-size: 20px;'>
               {{#if currentUser}}
                 {{#if currentUser.accountType.isFree}}
                   <p>Free account</p>
