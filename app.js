@@ -90,6 +90,8 @@ app.use('/', userRoutes);
 const fileRoutes = require('./routes/file.routes');
 app.use('/', fileRoutes);
 
+hbs.registerPartials(__dirname + '/views/partials');
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require('./error-handling')(app);
 

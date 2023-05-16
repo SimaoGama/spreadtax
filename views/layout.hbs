@@ -18,9 +18,17 @@
   </head>
 
   <header data-bs-theme='light'>
-    <nav data-bs-theme='light' class='navbar navbar-expand bg-white fixed-top'>
+    <nav
+      data-bs-theme='light'
+      class='navbar navbar-expand bg-white fixed-top'
+      style='height: 12vh;'
+    >
       <div class='container'>
-        <a class='title navbar-brand text-uppercase' href='/'>
+        <a
+          class='title navbar-brand text-uppercase'
+          href='/'
+          style='margin-top: -20px;'
+        >
           Spread<span><i>tax</i></span>
         </a>
         <button
@@ -56,6 +64,7 @@
                   data-toggle='dropdown'
                   aria-haspopup='true'
                   aria-expanded='false'
+                  style=' font-size:25px;'
                 >
                   Hello
                   {{currentUser.username}}
@@ -73,7 +82,7 @@
 
             {{/if}}
 
-            <a class='nav-link user-info'>
+            <a class='nav-link user-info' style='font-size: 25px;'>
               {{#if currentUser}}
                 {{#if currentUser.accountType.isFree}}
                   <p>Free account</p>
@@ -88,6 +97,7 @@
                 {{/if}}
               {{/if}}
             </a>
+
             {{#unless currentUser}}
               <a class='nav-link' href='/signup'>Register</a>
               <a class='nav-link' href='/login'>Login</a>
@@ -103,7 +113,7 @@
               </a>
             {{/if}}
           </div>
-          <div class='form-check form-switch mx-4'>
+          <div class='form-check form-switch mx-4' style='margin-top:-20px;'>
             Dark theme
             <input
               class='form-check-input p-2'
