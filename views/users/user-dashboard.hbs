@@ -1,8 +1,15 @@
-{{#if currentUser}}
-  <div class='container-fluid'>
-    <h1>Dashboard</h1>
-    <br />
-    <div class='row'>
+<div id="animation">
+  {{> animation}}
+</div>
+
+
+
+<div id='form' style='display: none;'>
+  {{#if currentUser}}
+    <div class='container-fluid'>
+      <h1>Dashboard</h1>
+      <br />
+      <div class='row'>
 
       <div class='col'>
         <h2>Client list</h2>
@@ -29,10 +36,10 @@
         </a>
       </div>
     </div>
-    <br />
     <div class='col'>
       <h2>Calendar</h2>
     </div>
   </div>
 
-{{/if}}
+  {{/if}}</div>
+ 

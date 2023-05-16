@@ -1,51 +1,60 @@
-<br />
-<div class='container'>
+<body>
+  <div id="animation">
+  {{> animation}}
+</div>
+  <br />
+  <div class='container' id='form' style='display: none;'>
 
-  <div class='login'>
-    <label class='form-check-label'>Accountant</label>
-    <input class='form-check-input' type='radio' name='isAdmin' />
+    <div class='login'>
+      <label class='form-check-label'>Accountant</label>
+      <input class='form-check-input' type='radio' name='isAdmin' />
 
-    <label class='form-check-label'>Client</label>
-    <input class='form-check-input' type='radio' name='isAdmin' />
+      <label class='form-check-label'>Client</label>
+      <input class='form-check-input' type='radio' name='isAdmin' />
 
-    <hr />
+      <hr />
 
-    <form action='/login' method='POST'>
-      <div class='form-floating'>
-        <input
-          class='form-control'
-          type='text'
-          name='username'
-          placeholder='Username'
-          required
-        />
-        <label for=''>Username:</label>
+      <form action='/login' method='POST'>
+        <div class='form-floating'>
+          <input
+            class='form-control'
+            type='text'
+            name='username'
+            placeholder='Username'
+            required
+          />
+          <label for=''>Username:</label>
+        </div>
+        <br />
+
+        <div class='form-floating'>
+          <input
+            class='form-control'
+            type='password'
+            name='password'
+            placeholder='Passsword'
+            required
+          />
+          <label for=''>Password:</label>
+        </div>
+        <br />
+
+        <button
+          class='btn btn-primary rounded-pill'
+          type='submit'
+        >Login</button>
+      </form>
+
+    </div>
+
+    {{#if errorMessage}}
+      <div class='alert alert-danger' role='alert'>
+        <div style='color: red'>
+          {{errorMessage}}
+        </div>
       </div>
-      <br />
-
-      <div class='form-floating'>
-        <input
-          class='form-control'
-          type='password'
-          name='password'
-          placeholder='Passsword'
-          required
-        />
-        <label for=''>Password:</label>
-      </div>
-      <br />
-
-      <button class='btn btn-primary rounded-pill' type='submit'>Login</button>
-    </form>
+    {{/if}}
 
   </div>
 
-  {{#if errorMessage}}
-    <div class='alert alert-danger' role='alert'>
-      <div style='color: red'>
-        {{errorMessage}}
-      </div>
-    </div>
-  {{/if}}
-
-</div>
+</body>

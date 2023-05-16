@@ -54,6 +54,11 @@ function getCurrentLoggedUser(req, res, next) {
   next();
 }
 
+function loading(req, res, next) {
+  res.render('transition');
+  next();
+}
+
 const bodyParser = require('body-parser');
 //use the middleware
 app.use(getCurrentLoggedUser);
@@ -84,6 +89,8 @@ app.use('/', userRoutes);
 
 const fileRoutes = require('./routes/file.routes');
 app.use('/', fileRoutes);
+
+hbs.registerPartials(__dirname + '/views/partials');
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require('./error-handling')(app);

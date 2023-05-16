@@ -55,3 +55,17 @@ buttons.forEach(button => {
     button.classList.add('active');
   });
 });
+
+require('@lottiefiles/lottie-player/dist/lottie-player.js');
+
+// Select the container
+const container = document.querySelector('#animation-container');
+
+// Create a new Lottie player instance
+const player = container.querySelector('lottie-player');
+player.load();
+
+// Render the animation in the container
+player.addEventListener('load', () => {
+  player.play();
+});
