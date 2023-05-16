@@ -16,34 +16,146 @@ const upload = multer({ dest: 'uploads/' });
 // });
 
 router.post(
-  '/clients/:id/hr/submit',
+  '/clients/:id/:type/submit',
   fileUpload.single('file'),
   async (req, res) => {
-    let fileUrlOnCloudinary = '';
-
+    let fileUrlOnCloudinary = req.file.path;
+    let type = req.params.type;
     const clientId = req.params.id;
     const client = await Client.findById(clientId);
+    const { month } = req.body;
+    let newFile;
+
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
 
     if (!client) {
       return res.status(404).send('Client not found');
     }
 
-    const { month } = req.body;
+    if (!month) {
+      let errorMessage = (res.locals.errorMessage = 'Please select a month');
+      console.log(type);
 
-    const newFile = new File({
-      name: req.file.originalname,
-      month,
-      fileUrl: fileUrlOnCloudinary
-    });
+      return res.render('clients/client-details', {
+        client,
+        months,
+        errorMessage,
+        type
+      });
+    } else if (!req.file) {
+      let errorMessage = (res.locals.errorMessage =
+        'Please select a file to upload');
 
-    newFile.fileClient.push(clientId);
-    await newFile.save();
+      return res.render('clients/client-details', {
+        client,
+        months,
+        errorMessage,
+        type
+      });
+    }
 
-    client.clientFiles.push(newFile._id);
-    await client.save();
+    if (type === 'hr') {
+      newFile = new File({
+        name: req.file.originalname,
+        tag: 'human resources',
+        month,
+        fileUrl: fileUrlOnCloudinary
+      });
+    } else if (type === 'mt') {
+      newFile = new File({
+        name: req.file.originalname,
+        tag: 'monthly taxes',
+        month,
+        fileUrl: fileUrlOnCloudinary
+      });
+    } else if (type === 'yt') {
+      newFile = new File({
+        name: req.file.originalname,
+        tag: 'yearly taxes',
+        month,
+        fileUrl: fileUrlOnCloudinary
+      });
+    }
 
-    res.send('File uploaded successfully!');
+    try {
+      newFile.fileClient.push(clientId);
+      await newFile.save();
+
+      client.clientFiles.push(newFile._id);
+      await client.save();
+
+      res.send('File uploaded successfully!');
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('Error saving file to database');
+    }
   }
 );
+
+router.get('/clients/:id/:type/documents', async (req, res) => {
+  const clientId = req.params.id;
+  const type = req.params.type;
+  const { month } = req.query;
+
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  const client = await Client.findById(clientId).populate('clientFiles');
+  if (!client) {
+    return res.status(404).send('Client not found');
+  }
+
+  let query = { fileClient: clientId };
+
+  if (type === 'hr') {
+    query.tag = 'human resources';
+  } else if (type === 'mt') {
+    query.tag = 'monthly taxes';
+  } else if (type === 'yt') {
+    query.tag = 'yearly taxes';
+  }
+
+  //   let files = [...client.clientFiles];
+
+  if (month && query.tag) {
+    query.month = month;
+  }
+
+  let files = await File.find({
+    ...query,
+    month: month
+  }).populate('fileClient');
+
+  console.log(query.tag);
+  console.log(month);
+  console.log(files);
+
+  res.render('clients/client-details', { client, files, months });
+});
 
 module.exports = router;

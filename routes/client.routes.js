@@ -130,18 +130,28 @@ router.get('/clients/:id', async (req, res) => {
 
 router.post('/clients/edit', fileUpload.single('image'), async (req, res) => {
   const { companyName, email, nipc, niss, address } = req.body;
-  const fileUrl = req.file ? req.file.path : null;
+  const client = await Client.findById(req.query.id);
 
-  await Client.findByIdAndUpdate(req.query.id, {
-    companyName,
-    email,
-    nipc,
-    niss,
-    address,
-    imageUrl: fileUrl
-  });
+  let imageUrl = client.imageUrl;
+  if (req.file) {
+    imageUrl = req.file.path;
+  }
 
-  res.redirect(`/clients/${req.query.id}`);
+  try {
+    await Client.findByIdAndUpdate(req.query.id, {
+      companyName,
+      email,
+      nipc,
+      niss,
+      address,
+      imageUrl
+    });
+
+    res.redirect(`/clients/${req.query.id}`);
+  } catch (e) {
+    alert(e);
+    res.redirect(`/clients/${req.query.id}`);
+  }
 });
 
 router.get('/clients/:id/edit', async (req, res) => {

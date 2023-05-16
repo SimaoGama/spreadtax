@@ -145,25 +145,47 @@
                   </form>
                 </div>
               </div>
-              {{! end form }}
+              {{! end form HR }}
+              {{#if errorMessage}}
+                <div class='alert alert-danger' role='alert'>
+                  <div style='color: red'>
+                    {{errorMessage}}
+                  </div>
+                </div>
+              {{/if}}
             </div>
 
             <div class='col'>
               <div class='card-body'>
                 <h4 class='text-center'>Download documents</h4>
-                <select
-                  class='form-select'
-                  name='month'
-                  aria-label='Select month'
-                  required
+                <form
+                  method='GET'
+                  action='/clients/{{client._id}}/hr/documents'
+                  enctype='multipart/form-data'
                 >
-                  <option value=''>Select month</option>
-                  {{#each months}}
-                    <option name='month' value='{{this}}'>{{this}}</option>
-                  {{/each}}
-                </select>
-                <br />
+                  <select
+                    class='form-select'
+                    name='month'
+                    aria-label='Select month'
+                    required
+                  >
+                    <option value=''>Select month</option>
+                    {{#each months}}
+                      <option name='month' value='{{this}}'>{{this}}</option>
+                    {{/each}}
+                  </select>
+                  <br />
+                  <button class='btn btn-primary' type='submit'>Search</button>
+                </form>
+
               </div>
+              {{#if files}}
+                <ul>
+                  {{#each files}}
+                    <li><a href='{{this.fileUrl}}'>{{this.name}}</a></li>
+                  {{/each}}
+                </ul>
+              {{/if}}
             </div>
           </div>
         </div>
@@ -206,7 +228,7 @@
                   <form
                     novalidate
                     method='POST'
-                    action='/clients/{{client._id}}/hr/submit'
+                    action='/clients/{{client._id}}/mt/submit'
                     enctype='multipart/form-data'
                   >
                     <select
@@ -238,6 +260,13 @@
                 </div>
               </div>
               {{! end form }}
+              {{#if errorMessage}}
+                <div class='alert alert-danger' role='alert'>
+                  <div style='color: red'>
+                    {{errorMessage}}
+                  </div>
+                </div>
+              {{/if}}
             </div>
 
             <div class='col'>
@@ -296,7 +325,7 @@
                   <form
                     novalidate
                     method='POST'
-                    action='/clients/{{client._id}}/hr/submit'
+                    action='/clients/{{client._id}}/yt/submit'
                     enctype='multipart/form-data'
                   >
                     <select
@@ -328,6 +357,13 @@
                 </div>
               </div>
               {{! end form }}
+              {{#if errorMessage}}
+                <div class='alert alert-danger' role='alert'>
+                  <div style='color: red'>
+                    {{errorMessage}}
+                  </div>
+                </div>
+              {{/if}}
             </div>
 
             <div class='col'>
