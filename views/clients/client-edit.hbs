@@ -100,7 +100,7 @@
   <form
     action='/clients/{{client.id}}/delete'
     method='POST'
-    {{!-- onsubmit="return confirm('Are you sure you want to delete {{client.companyName}}?')" --}}
+    onsubmit="return confirm('Are you sure you want to delete {{client.companyName}}?')"
   >
     <button class='btn btn-danger'>
       Delete client

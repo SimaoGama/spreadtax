@@ -12,14 +12,14 @@
       <div class='row'>
 
       <div class='col'>
-        <h2>Client list</h2>
+        <h1>Clients list:</h1>
         <br />
         <div class='col-sm'>
           {{#each user}}
             {{#each this.userClients}}
               <a
                 type='button'
-                class='btn btn-secondary btn-default'
+                class='btn btn-lg btn-light btn-default btn-outline-dark'
                 href='/clients/{{_id}}'
               >{{this.companyName}}
               </a>
@@ -30,16 +30,16 @@
         </div>
         <a
           type='button'
-          class='btn btn-secondary btn-default'
+          class='btn btn-secondary btn-default btn-colors'
           href='/clients/new'
         >New Client
         </a>
       </div>
     </div>
     <br>
-    <div class='col'>
+    {{!-- <div class='col'>
       <h2>Calendar</h2>
-    </div>
+    </div> --}}
   </div>
 
   {{/if}}</div>

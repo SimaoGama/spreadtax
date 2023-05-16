@@ -193,9 +193,9 @@
                       />
                     </a>
                     <form
-                      action='/clients/{{client.id}}/hr/documents/{{files.id}}/delete'
+                      action='/clients/{{client._id}}/hr/documents/{{this.id}}/delete'
                       method='POST'
-                      {{!-- onsubmit="return confirm('Are you sure you want to delete {{client.companyName}}?')" --}}
+                      onsubmit="return confirm('Are you sure you want to delete {{this.name}}?')"
                     >
                       <button class='btn btn-danger'>
                         Delete file

@@ -151,31 +151,56 @@ router.get('/clients/:id/:type/documents', async (req, res) => {
     month: month
   }).populate('fileClient');
 
-  console.log(query.tag);
-  console.log(month);
-  console.log(files);
-
   res.render('clients/client-details', { client, files, months });
 });
 
-module.exports = router;
+router.get('/clients/:id/hr/documents', async (req, res) => {
+  const clientId = req.params.id;
 
-router.delete(
-  '/clients/:id/:type/documents/:fileId/delete',
-  async (req, res) => {
-    const clientId = req.params.clientId;
-    const fileId = req.params.fileId;
-    const type = req.params.type;
-    const client = Client.findById(clientId);
-
-    // Delete the file with the given ID
-    try {
-      await File.findByIdAndDelete(fileId);
-
-      res.redirect(`/clients/${clientId}/${type}/documents`);
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Server error');
+  try {
+    const client = await Client.findById(clientId);
+    if (!client) {
+      return res.status(404).send('Client not found');
     }
+
+    // Get the documents/files for the client
+    const files = await File.find({ clientId });
+
+    res.render('clients/client-details', { client, files });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
   }
-);
+});
+
+router.post('/clients/:id/:type/documents/:fileId/delete', async (req, res) => {
+  const clientId = req.params.id;
+  const fileId = req.params.fileId;
+  const type = req.params.type;
+
+  try {
+    const client = await Client.findById(clientId);
+    if (!client) {
+      return res.status(404).send('Client not found');
+    }
+
+    const deletedFile = await File.findByIdAndDelete(fileId);
+    if (!deletedFile) {
+      return res.status(404).send('File not found');
+    }
+
+    const index = client.clientFiles.indexOf(deletedFile._id);
+    if (index > -1) {
+      client.clientFiles.splice(index, 1);
+    }
+
+    await client.save();
+
+    res.redirect(`/clients/${clientId}/${type}/documents`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server error');
+  }
+});
+
+module.exports = router;
