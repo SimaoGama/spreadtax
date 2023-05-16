@@ -159,6 +159,7 @@
               <div class='card-body'>
                 <h4 class='text-center'>Download documents</h4>
                 <form
+                  id='hr-search-form'
                   method='GET'
                   action='/clients/{{client._id}}/hr/documents'
                   enctype='multipart/form-data'
@@ -178,14 +179,31 @@
                   <button class='btn btn-primary' type='submit'>Search</button>
                 </form>
 
-              </div>
-              {{#if files}}
-                <ul>
+                {{#if files}}
                   {{#each files}}
-                    <li><a href='{{this.fileUrl}}'>{{this.name}}</a></li>
+                    {{this.name}}
+                    <a class='zoom' href='{{this.fileUrl}}'>
+                      <br />
+                      <img
+                        class='zoom'
+                        src='{{this.fileUrl}}'
+                        alt='{{this.name}}'
+                        width='200'
+                        height='auto'
+                      />
+                    </a>
+                    <form
+                      action='/clients/{{client.id}}/hr/documents/{{files.id}}/delete'
+                      method='POST'
+                      {{!-- onsubmit="return confirm('Are you sure you want to delete {{client.companyName}}?')" --}}
+                    >
+                      <button class='btn btn-danger'>
+                        Delete file
+                      </button>
+                    </form>
                   {{/each}}
-                </ul>
-              {{/if}}
+                {{/if}}
+              </div>
             </div>
           </div>
         </div>

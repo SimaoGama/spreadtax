@@ -159,3 +159,23 @@ router.get('/clients/:id/:type/documents', async (req, res) => {
 });
 
 module.exports = router;
+
+router.delete(
+  '/clients/:id/:type/documents/:fileId/delete',
+  async (req, res) => {
+    const clientId = req.params.clientId;
+    const fileId = req.params.fileId;
+    const type = req.params.type;
+    const client = Client.findById(clientId);
+
+    // Delete the file with the given ID
+    try {
+      await File.findByIdAndDelete(fileId);
+
+      res.redirect(`/clients/${clientId}/${type}/documents`);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
+  }
+);

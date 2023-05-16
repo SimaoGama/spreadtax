@@ -12,6 +12,9 @@ function activateDarkMode() {
   let currentBodyTheme = body.dataset.bsTheme;
   let currentNavTheme = nav.dataset.bsTheme;
 
+  body.style.backgroundImage = 'none';
+  body.style.backgroundColor = '#060606';
+
   header.dataset.bsTheme = currentHeaderTheme == 'light' ? 'dark' : 'light';
   body.dataset.bsTheme = currentBodyTheme == 'light' ? 'dark' : 'light';
   nav.dataset.bsTheme = currentNavTheme == 'light' ? 'dark' : 'light';
@@ -19,11 +22,30 @@ function activateDarkMode() {
   if (nav.dataset.bsTheme === 'dark') {
     nav.classList.add('bg-black');
     nav.classList.remove('bg-white');
+    body.style.backgroundColor = 'black';
+    localStorage.setItem('dark-mode', 'true'); // Set dark mode to true
   } else {
     nav.classList.add('bg-white');
     nav.classList.remove('bg-black');
+    body.style.backgroundColor = '';
+    localStorage.setItem('dark-mode', 'false'); // Set dark mode to false
   }
 }
+
+// check for saved theme on page load
+window.onload = function () {
+  let savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    activateDarkMode();
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Check if dark mode is activated
+  if (localStorage.getItem('dark-mode') === 'true') {
+    activateDarkMode();
+  }
+});
 
 //dropdown:
 // get all the buttons that toggle the collapse

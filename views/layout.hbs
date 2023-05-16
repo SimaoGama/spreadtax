@@ -18,11 +18,7 @@
   </head>
 
   <header data-bs-theme='light'>
-    <nav
-      data-bs-theme='light'
-      class='navbar navbar-expand bg-white fixed-top'
-      style='height: 12vh;'
-    >
+    <nav data-bs-theme='light' class='navbar navbar-expand bg-white fixed-top'>
       <div class='container'>
         <a
           class='title navbar-brand text-uppercase'
@@ -64,7 +60,6 @@
                   data-toggle='dropdown'
                   aria-haspopup='true'
                   aria-expanded='false'
-                  style=' font-size:25px;'
                 >
                   Hello
                   {{currentUser.username}}
@@ -82,7 +77,7 @@
 
             {{/if}}
 
-            <a class='nav-link user-info' style='font-size: 25px;'>
+            <a class='nav-link user-info'>
               {{#if currentUser}}
                 {{#if currentUser.accountType.isFree}}
                   <p>Free account</p>
