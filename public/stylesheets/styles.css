@@ -2,7 +2,7 @@ body {
   background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 100px; /* fix nav padding */
+  padding-top: 120px; /* fix nav padding */
 }
 
 .title a {
