@@ -47,7 +47,6 @@ router.post(
 
     if (!month) {
       let errorMessage = (res.locals.errorMessage = 'Please select a month');
-      console.log(type);
 
       return res.render('clients/client-details', {
         client,
@@ -124,34 +123,52 @@ router.get('/clients/:id/:type/documents', async (req, res) => {
     'November',
     'December'
   ];
+  try {
+    const client = await Client.findById(clientId).populate('clientFiles');
+    if (!client) {
+      return res.status(404).send('Client not found');
+    }
 
-  const client = await Client.findById(clientId).populate('clientFiles');
-  if (!client) {
-    return res.status(404).send('Client not found');
+    let query = { fileClient: clientId };
+
+    if (type === 'hr') {
+      query.tag = 'human resources';
+    } else if (type === 'mt') {
+      query.tag = 'monthly taxes';
+    } else if (type === 'yt') {
+      query.tag = 'yearly taxes';
+    }
+
+    //   let files = [...client.clientFiles];
+
+    if (month && query.tag) {
+      query.month = month;
+    }
+
+    let files = await File.find({
+      ...query,
+      month: month
+    }).populate('fileClient');
+
+    if (!files || files.length === 0) {
+      const errorSearchMessage = 'No files found';
+      console.log('no files');
+      return res.render('clients/client-details', {
+        client,
+        months,
+        errorSearchMessage
+      });
+    }
+
+    res.render('clients/client-details', {
+      client,
+      files,
+      months
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send('Server error');
   }
-
-  let query = { fileClient: clientId };
-
-  if (type === 'hr') {
-    query.tag = 'human resources';
-  } else if (type === 'mt') {
-    query.tag = 'monthly taxes';
-  } else if (type === 'yt') {
-    query.tag = 'yearly taxes';
-  }
-
-  //   let files = [...client.clientFiles];
-
-  if (month && query.tag) {
-    query.month = month;
-  }
-
-  let files = await File.find({
-    ...query,
-    month: month
-  }).populate('fileClient');
-
-  res.render('clients/client-details', { client, files, months });
 });
 
 router.get('/clients/:id/hr/documents', async (req, res) => {
@@ -175,8 +192,8 @@ router.get('/clients/:id/hr/documents', async (req, res) => {
 
 router.post('/clients/:id/:type/documents/:fileId/delete', async (req, res) => {
   const clientId = req.params.id;
-  const fileId = req.params.fileId;
   const type = req.params.type;
+  const fileId = req.params.fileId;
 
   try {
     const client = await Client.findById(clientId);

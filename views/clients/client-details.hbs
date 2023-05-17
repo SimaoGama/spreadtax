@@ -161,7 +161,7 @@
                 <form
                   id='hr-search-form'
                   method='GET'
-                  action='/clients/{{client._id}}/hr/documents'
+                  action='/clients/{{client._id}}/hr/documents#hr-search-form'
                   enctype='multipart/form-data'
                 >
                   <select
@@ -203,6 +203,15 @@
                     </form>
                   {{/each}}
                 {{/if}}
+
+                {{#if errorSearchMessage}}
+                  <div class='alert alert-danger' role='alert'>
+                    <div style='color: red'>
+                      {{errorSearchMessage}}
+                    </div>
+                  </div>
+                {{/if}}
+
               </div>
             </div>
 
