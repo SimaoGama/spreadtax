@@ -138,8 +138,9 @@ router.post(
       } catch (error) {
         console.error('Error sending email:', error);
       }
-
-      res.send('File uploaded successfully!');
+      //res.send
+      console.log('File uploaded successfully!');
+      res.redirect(`/clients/${clientId}/#hr`);
     } catch (error) {
       console.error(error);
       return res.status(500).send('Error saving file to database');
