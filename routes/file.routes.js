@@ -6,6 +6,8 @@ const User = require('../models/User.model');
 const File = require('../models/File.model');
 
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const transporter = require('../config/transporter.config');
 
 const fileUpload = require('../config/cloudinary');
 const multer = require('multer');
@@ -19,8 +21,8 @@ router.post(
   '/clients/:id/:type/submit',
   fileUpload.single('file'),
   async (req, res) => {
-    let fileUrlOnCloudinary = req.file.path;
     let type = req.params.type;
+    const user = req.session.currentUser;
     const clientId = req.params.id;
     const client = await Client.findById(clientId);
     const { month } = req.body;
@@ -54,7 +56,9 @@ router.post(
         errorMessage,
         type
       });
-    } else if (!req.file) {
+    }
+
+    if (!req.file) {
       let errorMessage = (res.locals.errorMessage =
         'Please select a file to upload');
 
@@ -65,6 +69,8 @@ router.post(
         type
       });
     }
+
+    let fileUrlOnCloudinary = req.file.path;
 
     if (type === 'hr') {
       newFile = new File({
@@ -95,6 +101,43 @@ router.post(
 
       client.clientFiles.push(newFile._id);
       await client.save();
+
+      const emailTemplate = `<!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>${user.username} has just uploaded some files</title>
+    </head>
+    <body>
+      <h1>${user.username} has just uploaded some files</h1>
+      <p>Dear ${client.companyName},</p>
+      <p>Please follow the link to download the files</p>
+      <p>${fileUrlOnCloudinary}</p>
+      <p>Here are your account details:</p>
+      <ul>
+        <li><strong>Email:</strong> ${client.email}</li>
+        <li><strong>Username:</strong> ${client.companyName}</li>
+      </ul>
+      <p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
+      <p>Best regards,</p>
+      <p>Spreadtax team</p>
+    </body>
+    </html>`;
+
+      //send confirmation email
+      const mailOptions = {
+        from: `"Spreadtax" <${process.env.EMAIL_ADDRESS}>`,
+        to: client.email,
+        subject: 'Welcome to Spreadtax',
+        html: emailTemplate
+      };
+
+      try {
+        await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully');
+      } catch (error) {
+        console.error('Error sending email:', error);
+      }
 
       res.send('File uploaded successfully!');
     } catch (error) {

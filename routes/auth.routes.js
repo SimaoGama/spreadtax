@@ -4,6 +4,8 @@ const User = require('../models/User.model');
 const Client = require('../models/Client.model');
 const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+const transporter = require('../config/transporter.config');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -35,6 +37,12 @@ router.post('/signup', async (req, res) => {
   const user = await User.findOne({ username });
   if (user !== null) {
     res.render('auth/signup', { errorMessage: 'Username already exists' });
+    return;
+  }
+
+  const existingUser = await User.findOne({ email });
+  if (existingUser !== null) {
+    res.render('auth/signup', { errorMessage: 'Email already exists' });
     return;
   }
 
@@ -81,6 +89,42 @@ router.post('/signup', async (req, res) => {
       }
     });
     console.log('Unlimited');
+  }
+
+  const emailTemplate = `<!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Welcome to Spreadtax!</title>
+    </head>
+    <body>
+      <h1>Welcome to Spreadtax!</h1>
+      <p>Dear ${username},</p>
+      <p>Thank you for signing up for our app. We're excited to have you on board!</p>
+      <p>Here are your account details:</p>
+      <ul>
+        <li><strong>Email:</strong> ${email}</li>
+        <li><strong>Username:</strong> ${username}</li>
+      </ul>
+      <p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
+      <p>Best regards,</p>
+      <p>Spreadtax team</p>
+    </body>
+    </html>`;
+
+  //send confirmation email
+  const mailOptions = {
+    from: `"Spreadtax" <${process.env.EMAIL_ADDRESS}>`,
+    to: email,
+    subject: 'Welcome to Spreadtax',
+    html: emailTemplate
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
   }
 
   res.redirect('/login');

@@ -4,26 +4,24 @@ const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const transporter = require('../config/transporter.config');
 
-let transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'youremail@gmail.com',
-    pass: 'yourpassword'
-  }
+router.post('/send-email', (req, res, next) => {
+  const { email, subject, message } = req.body;
+
+  res.render('message', { email, subject, message });
 });
 
-let mailOptions = {
-  from: 'youremail@gmail.com',
-  to: 'myfriend@yahoo.com',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
+// Send an email with the information we got from the form
+transporter
+  .sendMail({
+    from: `"Spreadtax" <${process.env.EMAIL_ADDRESS}>`,
+    to: User.findById(req.params.id).email,
+    subject: subject,
+    text: message,
+    html: `<b>${message}</b>`
+  })
+  .then(info => res.render('message', { email, subject, message, info }))
+  .catch(error => console.log(error));
 
-transporter.sendMail(mailOptions, function (error, info) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
+module.exports = router;
