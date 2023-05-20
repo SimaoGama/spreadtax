@@ -17,8 +17,9 @@
         placeholder='username'
         value='{{user.username}}'
         required
+        disabled
       />
-      <label for=''>{{user.username}}</label>
+      <label for=''>username</label>
     </div>
 
     <br />
@@ -31,8 +32,9 @@
         placeholder='email'
         value='{{user.email}}'
         required
+        disabled
       />
-      <label for='email'>{{user.email}}</label>
+      <label for='email'>email</label>
     </div>
 
     <br />
@@ -45,7 +47,7 @@
         value='{{user.address}}'
         required
       />
-      <label for='address'> {{user.address}} </label>
+      <label for='address'> Address </label>
     </div>
 
     <br />
@@ -53,7 +55,7 @@
     <a
       type='button'
       class='btn btn-secondary btn-default'
-      href='/user/{{id}}/edit'
+      href='/user/{{user.id}}/edit'
     >Edit User</a>
 
   </form>

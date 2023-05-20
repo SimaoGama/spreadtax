@@ -42,7 +42,7 @@ router.get('/user/dashboard', async (req, res) => {
 router.get('/user/:id', async (req, res) => {
   const user = await User.findById(req.params.id);
 
-  res.render('users/user-settings', user);
+  res.render('users/user-settings', { user });
 });
 
 router.get('/user/:id/edit', async (req, res) => {
@@ -50,6 +50,24 @@ router.get('/user/:id/edit', async (req, res) => {
   console.log(user);
 
   res.render('users/user-edit', { user });
+});
+
+router.post('/user/:id/edit', async (req, res) => {
+  const { username, email, address } = req.body;
+  const userId = req.params.id;
+
+  try {
+    await User.findByIdAndUpdate(userId, {
+      username,
+      email,
+      address
+    });
+
+    res.redirect(`/user/${userId}`);
+  } catch (e) {
+    console.log(e);
+    res.redirect(`/user/${userId}/edit`);
+  }
 });
 
 module.exports = router;
