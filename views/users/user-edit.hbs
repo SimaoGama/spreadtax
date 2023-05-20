@@ -40,18 +40,60 @@
     <div class='form-floating'>
       <input
         class='form-control'
-        type='text'
-        name='address'
-        placeholder='address'
-        value='{{user.address}}'
+        type='password'
+        name='password'
+        placeholder='password'
+        value='{{user.password}}'
         required
+        disabled
       />
-      <label for='address'>address</label>
+      <label for='address'>Password</label>
     </div>
 
     <br />
 
     <button class='btn btn-lg btn-primary' type='submit'>Save changes</button>
+  </form>
+
+  <form action='/user/change-password' method='POST'>
+
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='password'
+        name='password'
+        placeholder='Enter your password'
+        value='password'
+        required
+      />
+      <label for='password'>Input Current Password</label>
+    </div>
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='password'
+        name='newPassword'
+        placeholder='Enter your new password'
+        value='newPassword'
+        required
+      />
+      <label for='newPassword'>Input New Password</label>
+    </div>
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='password'
+        name='confirmedPassword'
+        placeholder='Reenter New Password'
+        value='confirmedPassword'
+        required
+      />
+      <label for='confirmedPassword'>Confirm New Password</label>
+    </div>
+
+    <button type='submit' class='btn btn-lg btn-primary'>
+      Change Password
+    </button>
   </form>
 
 </div>

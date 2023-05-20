@@ -203,6 +203,62 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/user/change-password', async (req, res) => {
+  const currentPassword = req.body.password; // Retrieve the current password from the form input
+
+  // Retrieve the stored password from the database based on the user's ID
+  const userId = req.session.currentUser._id;
+  const user = await User.findById(userId);
+
+  if (!user) {
+    // Handle the case when the user is not found
+    return res.redirect('/user/:id/edit', { errorMessage: 'User not found' });
+  }
+
+  // Compare the current password with the stored password
+  bcrypt.compare(currentPassword, user.password, async (err, isMatch) => {
+    if (err) {
+      // Handle the comparison error
+      return res.status(500).send('Internal Server Error');
+    }
+
+    if (isMatch) {
+      // The current password matches the stored password
+
+      const newPassword = req.body.newPassword; // Retrieve the new password from the form input
+      const confirmedPassword = req.body.confirmedPassword; // Retrieve the confirmed password from the form input
+
+      if (newPassword === confirmedPassword) {
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Store the hashed password back in the database
+        user.password = hashedPassword;
+        try {
+          await user.save();
+          // Redirect the user or provide a success message
+          return res.redirect('/user/dashboard'); // Replace with the appropriate redirect URL
+        } catch (error) {
+          // Handle the database update error
+          return res.status(500).send('Internal Server Error');
+        }
+      } else {
+        // Passwords do not match
+        // Handle the error or inform the user about password mismatch
+        return res.redirect('/user/:id/edit', {
+          errorMessage: 'Passwords do not match'
+        });
+      }
+    } else {
+      // Current password does not match the stored password
+      // Handle the error or inform the user about incorrect current password
+      return res.redirect('/user/:id/edit', {
+        errorMessage: 'Incorrect current password'
+      });
+    }
+  });
+});
+
 router.post('/logout', async (req, res) => {
   req.session.destroy();
   res.redirect('/');
