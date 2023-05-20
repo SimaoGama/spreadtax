@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model');
+const Client = require('../models/Client.model');
 const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 
@@ -90,30 +91,71 @@ router.get('/login', (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  const user = await User.findOne({ username });
+  const { username, password, loginType } = req.body;
 
-  try {
-    if (!username || !password) {
-      res.render('auth/login', { errorMessage: 'Invalid login' });
-      return;
-    }
+  console.log(loginType);
+  console.log(password);
 
-    if (!user) {
-      res.render('auth/login', { errorMessage: 'User does not exist' });
-      return;
-    }
+  if (loginType === 'isUser') {
+    try {
+      if (!username || !password) {
+        return res.render('auth/login', { errorMessage: 'Invalid login' });
+      }
 
-    //check if password matches
-    if (bcrypt.compareSync(password, user.password)) {
-      req.session.currentUser = user;
-      res.redirect('/user/dashboard');
-    } else {
-      res.render('auth/login', { errorMessage: 'Invalid login' });
-      return;
+      const user = await User.findOne({ username });
+
+      if (!user) {
+        return res.render('auth/login', {
+          errorMessage: 'User does not exist'
+        });
+      }
+
+      // Check if password matches
+      if (bcrypt.compareSync(password, user.password)) {
+        req.session.currentUser = user;
+        return res.redirect('/user/dashboard');
+      } else {
+        return res.render('auth/login', { errorMessage: 'Invalid login' });
+      }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send('Server error');
     }
-  } catch (err) {
-    console.log(err);
+  } else if (loginType === 'isClient') {
+    try {
+      if (!username || !password) {
+        return res.render('auth/login', { errorMessage: 'Invalid username' });
+      }
+
+      const client = await Client.findOne({ companyName: username });
+
+      console.log('client is:', client);
+
+      if (!client) {
+        return res.render('auth/login', {
+          errorMessage: 'Client does not exist'
+        });
+      }
+
+      const comparePassword = await bcrypt.compare(password, client.password);
+      if (comparePassword) {
+        console.log(client.password);
+        req.session.currentUser = client;
+        /* return */ res.redirect('/client/dashboard');
+      } else {
+        console.log(client.password);
+        console.log(password);
+        /* return */ res.render('auth/login', {
+          errorMessage: 'Invalid password'
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: 'Server error', err: err });
+    }
+  } else {
+    // Invalid login type
+    return res.render('auth/login', { errorMessage: 'Invalid login type' });
   }
 });
 

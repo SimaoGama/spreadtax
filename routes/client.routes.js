@@ -37,12 +37,12 @@ router.post('/clients/new', fileUpload.single('image'), async (req, res) => {
     return;
   }
 
-  const regex = /(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  // const regex = /(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
-  if (regex.test(password) === false) {
+  /* if (regex.test(password)) {
     res.render('clients/new-client', { errorMessage: 'Password is too weak' });
     return;
-  }
+  } */
 
   const user = await User.findById(req.session.currentUser._id)
     .populate('userClients')
@@ -83,7 +83,7 @@ router.post('/clients/new', fileUpload.single('image'), async (req, res) => {
 
   const saltRounds = 10;
   const salt = bcrypt.genSaltSync(saltRounds);
-  const hashedPassword = bcrypt.hashSync('1234', salt);
+  const hashedPassword = bcrypt.hashSync(password, salt);
 
   const newClient = await Client.create({
     companyName,
@@ -176,6 +176,25 @@ router.post('/clients/:id/delete', async (req, res) => {
     res.redirect(`/user/dashboard`);
   } catch (err) {
     console.error(err);
+  }
+});
+
+router.get('/client/dashboard', async (req, res) => {
+  //   console.log(req.session.currentUser.userClients);
+  try {
+    if (!req.session.currentUser || !req.session.currentUser._id) {
+      res.redirect('/login');
+    } else {
+      const clientId = req.session.currentUser._id;
+      const client = await Client.findById(clientId).populate({
+        path: 'clientFiles',
+        options: { strictPopulate: false }
+      });
+      res.render('clients/client-dashboard', { client });
+    }
+  } catch (e) {
+    console.log(e);
+    res.render('index');
   }
 });
 

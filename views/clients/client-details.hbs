@@ -21,7 +21,9 @@
       <img
         class='rounded-circle client-logo'
         src='{{client.imageUrl}}'
-        alt=''
+        alt='client image'
+        width='400'
+        height='auto'
       />
       <br />
       <br />
@@ -39,11 +41,17 @@
     <p>No clients found.</p>
   {{/if}}
 
-  {{!-- <form action='/books/delete/{{id}}' method='POST'>
-  <button>
-    Delete
-  </button>
-</form> --}}
+<h1>NODEMAILER</h1>
+<form action="/send-email" method="post">
+  <label for="">Email</label>
+  <input type="email" name="email" id="">
+  <label for="">Subject</label>
+  <input type="text" name="subject" id="">
+  <label for="">Message</label>
+  <textarea type="text" name="message" id=""></textarea>
+  <button type="submit">Submit</button>
+</form>
+
 
   <hr />
 </div>
