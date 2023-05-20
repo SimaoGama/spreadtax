@@ -1,1 +1,12 @@
 <h1>Client Dashboard</h1>
+
+<form action='/chat/send/{{user.id}}' method='POST'>
+  <input type='hidden' name='recipientId' value='{{user.id}}' />
+  <input type='hidden' name='senderModel' value='{{client}}' />
+  <textarea
+    name='message'
+    placeholder='Type your message...'
+    required
+  ></textarea>
+  <button type='submit'>Send</button>
+</form>

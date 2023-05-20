@@ -49,7 +49,8 @@ const clientSchema = new Schema(
       default: false
     },
     hotlist: [String],
-    clientFiles: [{ type: Schema.Types.ObjectId, ref: 'File' }]
+    clientFiles: [{ type: Schema.Types.ObjectId, ref: 'File' }],
+    chats: [{ type: Schema.Types.ObjectId, ref: 'ChatMessage' }]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

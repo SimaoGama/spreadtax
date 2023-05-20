@@ -39,7 +39,8 @@ const userSchema = new Schema(
         default: false
       }
     },
-    userClients: [{ type: Schema.Types.ObjectId, ref: 'Client' }]
+    userClients: [{ type: Schema.Types.ObjectId, ref: 'Client' }],
+    chats: [{ type: Schema.Types.ObjectId, ref: 'ChatMessage' }]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

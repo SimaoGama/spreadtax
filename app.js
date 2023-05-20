@@ -90,6 +90,9 @@ app.use('/', userRoutes);
 const fileRoutes = require('./routes/file.routes');
 app.use('/', fileRoutes);
 
+const chatRoutes = require('./routes/chat.routes');
+app.use('/', chatRoutes);
+
 hbs.registerPartials(__dirname + '/views/partials');
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

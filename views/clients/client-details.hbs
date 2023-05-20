@@ -48,6 +48,21 @@
     <p>No clients found.</p>
   {{/if}}
 
+  <div>
+    <!-- chat-form.hbs -->
+
+<form action="/chat/send/{{client._id}}" method="POST">
+  <input type="hidden" name="recipient" value="{{client._id}}">
+  <input type="hidden" name="senderModel" value="User">
+  <input type="hidden" name="recipientModel" value="Client">
+  <textarea name="message" placeholder="Type your message..." required></textarea>
+  <button type="submit">Send</button>
+</form>
+
+
+
+  </div>
+
   <hr />
 </div>
 <div class='container-fluid'>
