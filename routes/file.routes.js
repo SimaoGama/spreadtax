@@ -111,13 +111,13 @@ router.post(
     <body>
       <h1>${user.username} has just uploaded some files</h1>
       <p>Dear ${client.companyName},</p>
-      <p>Please follow the link to download the files</p>
-      <p>${fileUrlOnCloudinary}</p>
-      <p>Here are your account details:</p>
-      <ul>
-        <li><strong>Email:</strong> ${client.email}</li>
-        <li><strong>Username:</strong> ${client.companyName}</li>
-      </ul>
+      <p>Please follow the link to download the files:</p>
+      <a href="${fileUrlOnCloudinary.replace(
+        'pdf',
+        'png'
+      )}" target="_blank" download>Click here to download</a>
+      <object src="${fileUrlOnCloudinary} />"
+
       <p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
       <p>Best regards,</p>
       <p>Spreadtax team</p>

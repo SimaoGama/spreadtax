@@ -7,18 +7,18 @@
     href='/user/{{user.id}}'
   >Back</a>
   <hr />
-  <form novalidate action='/clients/edit?id={{user.id}}' method='POST'>
 
+  <form novalidate action='/user/{{user.id}}/edit' method='POST'>
     <div class='form-floating'>
       <input
         class='form-control'
         type='text'
-        name='companyName'
+        name='username'
         placeholder='username'
         value='{{user.username}}'
         required
       />
-      <label for=''>{{user.username}}</label>
+      <label for=''>username</label>
     </div>
 
     <br />
@@ -32,10 +32,11 @@
         value='{{user.email}}'
         required
       />
-      <label for='email'>{{user.email}}</label>
+      <label for='email'>email</label>
     </div>
 
     <br />
+
     <div class='form-floating'>
       <input
         class='form-control'
@@ -45,7 +46,7 @@
         value='{{user.address}}'
         required
       />
-      <label for='address'> {{user.address}} </label>
+      <label for='address'>address</label>
     </div>
 
     <br />
