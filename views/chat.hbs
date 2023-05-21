@@ -1,8 +1,34 @@
-<h1>YOUR CHATS HERE</h1>
+<div class='container mt-4'>
+  <a
+    type='button'
+    class='btn btn-secondary btn-default btn-colors'
+    href='/clients/{{messages.0.recipient._id}}'
+  >Back</a>
 
-{{#each messages}}
-  <p>Sender: {{sender.username}}</p>
-  <p>Recipient: {{recipient.companyName}}</p>
-  <p>Timestamp: {{timestamp}}</p>
-  <p>Message: {{content}}</p>
-{{/each}}
+  {{#if messages}}
+    <div class='card-body p-4'>
+      <div class='d-flex align-items-baseline mb-4'>
+        <div class='position-relative avatar'>
+          <img src='{{messages.0.recipient.imageUrl}}' alt='recipient avatar' />
+        </div>
+      </div>
+    </div>
+
+    <h2>Chat with {{messages.0.recipient.companyName}}</h2>
+  {{/if}}
+  <br />
+  <hr />
+  {{#each messages}}
+    <div class='card-header bg-transparent'>
+      <p>Sender: {{sender.username}}</p>
+      <p>Recipient: {{recipient.companyName}}</p>
+
+      <p>Timestamp: {{timestamp}}</p>
+      <p>Message:</p>
+      <div class='card d-inline-block p-2 px-3 m-1'>
+
+        <h4>{{content}}</h4>
+      </div>
+    </div>
+  {{/each}}
+</div>

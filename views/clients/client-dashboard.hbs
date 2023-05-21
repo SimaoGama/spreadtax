@@ -1,12 +1,54 @@
-<h1>Client Dashboard</h1>
+<div class='container-fluid'>
+  <h1>Client Dashboard</h1>
+  <div class='row'>
+    <div class='col'>
 
-<form action='/chat/send/{{user.id}}' method='POST'>
-  <input type='hidden' name='recipientId' value='{{user.id}}' />
-  <input type='hidden' name='senderModel' value='{{client}}' />
-  <textarea
-    name='message'
-    placeholder='Type your message...'
-    required
-  ></textarea>
-  <button type='submit'>Send</button>
-</form>
+    </div>
+
+    <div class='col'>
+
+      <h3>Latest messages:</h3>
+      {{#each messages}}
+        <div class='card-header bg-transparent'>
+          <div class='card-body p-4'>
+            <i>{{this.timestamp}}</i>
+            {{#is this.sender._id ../currentUser._id}}
+              <p>Message sent by {{this.sender.companyName}}:</p>
+                <div class='card bg-info d-inline-block p-2 px-3 m-1'>
+                    <div class="card-body">
+                    <h5 class="card-text" >{{this.content}}</h5>
+                    </div>
+                </div>
+            {{else}}
+              <p>Message received from {{this.sender.username}}:</p>
+              <div class='card bg-light d-inline-block p-2 px-3 m-1'>
+                    <h5>{{this.content}}</h5>
+                </div>
+            {{/is}}
+            
+          </div>
+        </div>
+        <hr />
+      {{/each}}
+
+      <form action='/chat/send/{{client._id}}' method='POST'>
+        <div class='form-group'>
+          <input type='hidden' name='recipient' value='{{client._id}}' />
+          <input type='hidden' name='senderModel' value='Client' />
+          <input type='hidden' name='recipientModel' value='User' />
+          <textarea
+            class='form-control'
+            name='message'
+            placeholder='Type your message...'
+            required
+          ></textarea>
+          <br />
+          <button class='btn btn-primary' type='submit'>Send</button>
+          <a class='btn btn-colors' role='button' href='/client/dashboard'>See
+            all chats</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

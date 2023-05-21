@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Client = require('../models/Client.model');
 const User = require('../models/User.model');
+const Chat = require('../models/Chat.model');
 const bcrypt = require('bcryptjs');
 const fileUpload = require('../config/cloudinary');
 
@@ -108,24 +109,56 @@ router.post('/clients/new', fileUpload.single('image'), async (req, res) => {
 
 router.get('/clients/:id', async (req, res) => {
   const clientId = req.params.id;
-  const client = await Client.findById(clientId);
 
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
+  try {
+    if (!req.session.currentUser || !req.session.currentUser._id) {
+      res.redirect('/login');
+    } else {
+      const client = await Client.findById(clientId)
+        .populate({
+          path: 'clientFiles',
+          options: { strictPopulate: false }
+        })
+        .populate({
+          path: 'chats',
+          populate: { path: 'sender recipient' },
+          options: { sort: { timestamp: 'desc' }, limit: 3 }
+        });
 
-  res.render('clients/client-details', { client, months });
+      const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
+
+      if (client) {
+        const messages = client.chats;
+
+        res.render('clients/client-details', {
+          client,
+          months,
+          messages
+        });
+      } else {
+        res.render('clients/client-details', {
+          client,
+          months
+        });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    res.render('index');
+  }
 });
 
 router.post('/clients/edit', fileUpload.single('image'), async (req, res) => {
@@ -160,40 +193,33 @@ router.get('/clients/:id/edit', async (req, res) => {
   res.render('clients/client-edit', { client });
 });
 
-router.post('/clients/:id/delete', async (req, res) => {
-  const currentUser = await User.findById(req.session.currentUser._id);
-  const deletedClient = await Client.findByIdAndDelete(req.params.id);
-
-  try {
-    const index = currentUser.userClients.indexOf(deletedClient._id);
-    if (index > -1) {
-      currentUser.userClients.splice(index, 1);
-    }
-
-    await currentUser.save();
-    console.log(`Client with ID ${req.params.id} deleted successfully`);
-
-    res.redirect(`/user/dashboard`);
-  } catch (err) {
-    console.error(err);
-  }
-});
-
 router.get('/client/dashboard', async (req, res) => {
-  //   console.log(req.session.currentUser.userClients);
   try {
     if (!req.session.currentUser || !req.session.currentUser._id) {
       res.redirect('/login');
     } else {
       const clientId = req.session.currentUser._id;
-      const client = await Client.findById(clientId).populate({
-        path: 'clientFiles',
-        options: { strictPopulate: false }
+
+      const client = await Client.findById(clientId)
+        .populate({
+          path: 'clientFiles',
+          options: { strictPopulate: false }
+        })
+        .populate({
+          path: 'chats',
+          options: { sort: { timestamp: 'desc' }, limit: 3 },
+          populate: { path: 'sender recipient' }
+        });
+
+      res.render('clients/client-dashboard', {
+        client,
+        clientId,
+        messages: client.chats,
+        currentUserId: req.session.currentUser._id.toString() // Convert the current user ID to a string
       });
-      res.render('clients/client-dashboard', { client });
     }
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.error(error);
     res.render('index');
   }
 });
