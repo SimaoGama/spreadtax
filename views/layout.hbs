@@ -51,7 +51,7 @@
             <a class='nav-link' href='/#about'>About Us</a>
             <a class='nav-link' href='/#plans'>Pricing</a>
 
-            {{#if currentUser}}
+            {{#if currentUser.isAdmin}}
               <a class='nav-link' href='/user/dashboard'>Dashboard</a>
 
               <li class='nav-item dropdown user-info'>
@@ -67,7 +67,6 @@
                 >
                   Hello
                   {{currentUser.username}}
-                  {{currentUser.companyName}}
                 </a>
                 <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
                   <a class='dropdown-item' href='/user/dashboard'>Dashboard</a>
@@ -79,7 +78,31 @@
                   >Settings</a>
                 </div>
               </li>
+            {{else}}
+              <a class='nav-link' href='/user/dashboard'>Dashboard</a>
 
+              <li class='nav-item dropdown user-info'>
+                <a
+                  class='nav-link dropdown-toggle'
+                  href='#'
+                  id='navbarDropdown'
+                  role='button'
+                  data-toggle='dropdown'
+                  aria-haspopup='true'
+                  aria-expanded='false'
+                  style='font-size: 20px;'
+                >
+                  Hello
+                  {{currentUser.companyName}}
+                </a>
+                <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                  <a
+                    class='dropdown-item'
+                    href='/client/dashboard'
+                  >Dashboard</a>
+                  <div class='dropdown-divider'></div>
+                </div>
+              </li>
             {{/if}}
 
             <a class='nav-link user-info' style='font-size: 20px;'>
