@@ -18,7 +18,10 @@
   </head>
 
   <header data-bs-theme='light'>
-    <nav data-bs-theme='light' class='navbar navbar-expand bg-white fixed-top'>
+    <nav
+      data-bs-theme='light'
+      class='navbar navbar-expand-lg bg-white fixed-top'
+    >
       <div class='container'>
         <a
           class='title navbar-brand text-uppercase'
@@ -38,33 +41,23 @@
         >
           <span class='navbar-toggler-icon'></span>
         </button>
-        <div
-          class='collapse navbar-collapse navbar-expand-lg navbar-light'
-          id='navbarNavAltMarkup'
-        >
-
-          <div
-            class='navbar-nav ms-auto mb-2 mb-lg-0'
-            style='margin-top: 15px; padding:5px;'
-          >
+        <div class='collapse navbar-collapse' id='navbarNavAltMarkup'>
+          <div class='navbar-nav ms-auto mb-2 mb-lg-0'>
             <a class='nav-link active' aria-current='page' href='/'>Home</a>
             <a class='nav-link' href='/#about'>About Us</a>
             <a class='nav-link' href='/#plans'>Pricing</a>
-
             {{#if currentUser}}
               {{#if currentUser.isAdmin}}
                 <a class='nav-link' href='/user/dashboard'>Dashboard</a>
-
-                <li class='nav-item dropdown user-info'>
+                <li class='nav-item dropdown'>
                   <a
                     class='nav-link dropdown-toggle'
                     href='#'
                     id='navbarDropdown'
                     role='button'
-                    data-toggle='dropdown'
+                    data-bs-toggle='dropdown'
                     aria-haspopup='true'
                     aria-expanded='false'
-                    style='font-size: 20px;'
                   >
                     Hello
                     {{currentUser.username}}
@@ -83,20 +76,17 @@
                   </div>
                 </li>
               {{/if}}
-
               {{#unless currentUser.isAdmin}}
                 <a class='nav-link' href='/user/dashboard'>Dashboard</a>
-
-                <li class='nav-item dropdown user-info'>
+                <li class='nav-item dropdown'>
                   <a
                     class='nav-link dropdown-toggle'
                     href='#'
                     id='navbarDropdown'
                     role='button'
-                    data-toggle='dropdown'
+                    data-bs-toggle='dropdown'
                     aria-haspopup='true'
                     aria-expanded='false'
-                    style='font-size: 20px;'
                   >
                     Hello
                     {{currentUser.companyName}}
@@ -111,23 +101,19 @@
                 </li>
               {{/unless}}
             {{/if}}
-
             <a class='nav-link user-info' style='font-size: 20px;'>
               {{#if currentUser}}
                 {{#if currentUser.accountType.isFree}}
                   <p>Free account</p>
                 {{/if}}
-
                 {{#if currentUser.accountType.isPremium}}
                   <p>Premium account</p>
                 {{/if}}
-
                 {{#if currentUser.accountType.isUnlimited}}
                   <p>Unlimited account</p>
                 {{/if}}
               {{/if}}
             </a>
-
             {{#unless currentUser}}
               <a class='nav-link' href='/signup'>Register</a>
               <a class='nav-link' href='/login'>Login</a>
@@ -137,14 +123,13 @@
                 <form action='/logout' method='POST'>
                   <button
                     class='btn btn-secondary btn-colors'
-                    type='sumbmit'
+                    type='submit'
                   >Logout</button>
                 </form>
               </a>
             {{/if}}
           </div>
           <div class='form-check form-switch mx-4'>
-
             <a
               type='button'
               id='flexSwithCheckChecked'
@@ -154,7 +139,7 @@
               <img
                 class='dk-mode'
                 src='/images/light.png'
-                style='widht:50px; height:50px; display: block;'
+                style='width: 50px; height: 50px; display: block;'
                 alt='dark mode'
               />
             </a>
@@ -162,6 +147,7 @@
         </div>
       </div>
     </nav>
+
   </header>
 
   <body data-bs-theme='light'>
