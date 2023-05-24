@@ -24,11 +24,16 @@ function activateDarkMode() {
     nav.classList.remove('bg-white');
     body.style.backgroundColor = 'black';
     localStorage.setItem('dark-mode', 'true'); // Set dark mode to true
+
+    let image = document.querySelector('.dk-mode');
+    image.src = '/images/dark.png'; //
   } else {
     nav.classList.add('bg-white');
     nav.classList.remove('bg-black');
     body.style.backgroundColor = '';
     localStorage.setItem('dark-mode', 'false'); // Set dark mode to false
+    let image = document.querySelector('.dk-mode');
+    image.src = '/images/light.png'; //
   }
 }
 
@@ -91,5 +96,3 @@ player.load();
 player.addEventListener('load', () => {
   player.play();
 });
-
-

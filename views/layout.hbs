@@ -113,16 +113,21 @@
               </a>
             {{/if}}
           </div>
-          <div class='form-check form-switch mx-4' style='margin-top:-20px;'>
-            Dark theme
-            <input
-              class='form-check-input p-2'
-              type='checkbox'
-              role='switch'
+          <div class='form-check form-switch mx-4'>
+
+            <a
+              type='button'
               id='flexSwithCheckChecked'
-              unchecked
               onclick='activateDarkMode()'
-            />
+              style='background-color: transparent;'
+            >
+              <img
+                class='dk-mode'
+                src='/images/light.png'
+                style='widht:50px; height:50px; display: block;'
+                alt='dark mode'
+              />
+            </a>
           </div>
         </div>
       </div>
