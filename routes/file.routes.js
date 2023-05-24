@@ -166,6 +166,7 @@ router.get('/clients/:id/:type/documents', async (req, res) => {
     'November',
     'December'
   ];
+
   try {
     const client = await Client.findById(clientId).populate('clientFiles');
     if (!client) {
@@ -174,64 +175,112 @@ router.get('/clients/:id/:type/documents', async (req, res) => {
 
     let query = { fileClient: clientId };
 
-    if (type === 'hr') {
-      query.tag = 'human resources';
-    } else if (type === 'mt') {
-      query.tag = 'monthly taxes';
-    } else if (type === 'yt') {
-      query.tag = 'yearly taxes';
-    }
-
-    //   let files = [...client.clientFiles];
-
-    if (month && query.tag) {
+    if (month) {
       query.month = month;
     }
 
-    let files = await File.find({
-      ...query,
-      month: month
-    }).populate('fileClient');
-
-    if (!files || files.length === 0) {
-      const errorSearchMessage = 'No files found';
-      console.log('no files');
-      return res.render('clients/client-details', {
+    if (type === 'hr') {
+      query.tag = 'human resources';
+      let hrFiles = await File.find(query).populate('fileClient');
+      if (!hrFiles || hrFiles.length === 0) {
+        const errorSearchMessage = 'No files found';
+        console.log('No files');
+        return res.render('clients/client-details', {
+          client,
+          months,
+          errorSearchMessage
+        });
+      }
+      console.log(hrFiles);
+      res.render('clients/client-details', {
         client,
-        months,
-        errorSearchMessage
+        hrFiles, // Use 'files' as the variable name
+        months
+      });
+    } else if (type === 'mt') {
+      query.tag = 'monthly taxes';
+      let mtFiles = await File.find(query).populate('fileClient');
+      if (!mtFiles || mtFiles.length === 0) {
+        const errorSearchMessage = 'No files found';
+        console.log('No files');
+        return res.render('clients/client-details', {
+          client,
+          months,
+          errorSearchMessage
+        });
+      }
+      console.log(mtFiles);
+      res.render('clients/client-details', {
+        client,
+        mtFiles, // Use 'files' as the variable name
+        months
+      });
+    } else if (type === 'yt') {
+      query.tag = 'yearly taxes';
+      let ytFiles = await File.find(query).populate('fileClient');
+      if (!ytFiles || ytFiles.length === 0) {
+        const errorSearchMessage = 'No files found';
+        console.log('No files');
+        return res.render('clients/client-details', {
+          client,
+          months,
+          errorSearchMessage
+        });
+      }
+
+      res.render('clients/client-details', {
+        client,
+        files: ytFiles, // Use 'files' as the variable name
+        months
       });
     }
 
-    res.render('clients/client-details', {
-      client,
-      files,
-      months
-    });
-  } catch (e) {
-    console.log(e);
+    console.log(query);
+  } catch (error) {
+    console.error(error);
     res.status(500).send('Server error');
   }
 });
 
-router.get('/clients/:id/hr/documents', async (req, res) => {
-  const clientId = req.params.id;
+// router.get('/clients/:id/hr/documents', async (req, res) => {
+//   const clientId = req.params.id;
 
-  try {
-    const client = await Client.findById(clientId);
-    if (!client) {
-      return res.status(404).send('Client not found');
-    }
+//   try {
+//     const client = await Client.findById(clientId);
+//     if (!client) {
+//       return res.status(404).send('Client not found');
+//     }
 
-    // Get the documents/files for the client
-    const files = await File.find({ clientId });
+//     // Get the documents/files for the client
+//     const hrFiles = await File.find({ clientId, tag: 'hr' });
 
-    res.render('clients/client-details', { client, files });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error');
-  }
-});
+//     res.render('clients/client-details', { client, hrFiles });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Server error');
+//   }
+// });
+
+// router.get('/clients/:id/mt/documents', async (req, res) => {
+//   const clientId = req.params.id;
+
+//   try {
+//     const client = await Client.findById(clientId);
+//     if (!client) {
+//       return res.status(404).send('Client not found');
+//     }
+
+//     // Get the documents/files for the client
+//     const mtFiles = await File.find({ clientId, tag: 'monthly taxes' });
+
+//     console.log(mtFiles);
+
+//     res.render('clients/client-details', { client, mtFiles });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Server error');
+//   }
+// });
 
 router.post('/clients/:id/:type/documents/:fileId/delete', async (req, res) => {
   const clientId = req.params.id;

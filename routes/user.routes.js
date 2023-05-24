@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model');
 const fileUpload = require('../config/cloudinary');
+const isAdmin = require('../middleware/isAdmin');
 
 // router.get('/user/dashboard', async (req, res) => {
 //   try {
@@ -21,7 +22,7 @@ const fileUpload = require('../config/cloudinary');
 //   }
 // });
 
-router.get('/user/dashboard', async (req, res) => {
+router.get('/user/dashboard', isAdmin, async (req, res) => {
   //   console.log(req.session.currentUser.userClients);
   try {
     if (!req.session.currentUser || !req.session.currentUser._id) {

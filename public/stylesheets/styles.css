@@ -26,6 +26,12 @@ footer {
   background-color: #f16225c6;
 }
 
+/* .bg-img {
+  background-image: url('/images/orrranje-removebg-preview.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
 .title a {
   font-size: 40px;
 }

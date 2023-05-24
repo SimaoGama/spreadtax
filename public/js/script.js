@@ -31,6 +31,7 @@ function activateDarkMode() {
     nav.classList.add('bg-white');
     nav.classList.remove('bg-black');
     body.style.backgroundColor = '';
+    body.style.backgroundImage = url('/images/background.jpg');
     localStorage.setItem('dark-mode', 'false'); // Set dark mode to false
     let image = document.querySelector('.dk-mode');
     image.src = '/images/light.png'; //

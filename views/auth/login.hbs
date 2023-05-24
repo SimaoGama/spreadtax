@@ -7,11 +7,17 @@
 
     <div class='login'>
   <form novalidate action='/login' method='POST'>
-    <label class='form-check-label'>User</label>
-    <input class='form-check-input' type='radio' name='loginType' value="isUser" checked />
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="radio" name="loginType" value="isUser" autocomplete="off" checked> User
+      </label>
+      
+      <label class="btn btn-secondary">
+        <input type="radio" name="loginType" value="isClient" autocomplete="off"> Client
+      </label>
+      
+    </div>
 
-    <label class='form-check-label'>Client</label>
-    <input class='form-check-input' type='radio' name='loginType' value="isClient" />
 
     <hr />
 
