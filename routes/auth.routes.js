@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const transporter = require('../config/transporter.config');
+const fileUpload = require('../config/cloudinary');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 
@@ -19,7 +20,12 @@ router.get('/auth/signup', (req, res) => {
   res.render('auth/signup', { accountType });
 });
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', fileUpload.single('image'), async (req, res) => {
+  let fileUrlOnCloudinary = '';
+  if (req.file) {
+    fileUrlOnCloudinary = req.file.path;
+  }
+
   const { username, email, password, accountType } = req.body;
 
   if (username === '' || email === '' || password === '') {
@@ -56,6 +62,7 @@ router.post('/signup', async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      imageUrl: fileUrlOnCloudinary,
       accountType: {
         isFree: true,
         isPremium: false,
@@ -69,6 +76,7 @@ router.post('/signup', async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      imageUrl: fileUrlOnCloudinary,
       accountType: {
         isFree: false,
         isPremium: true,
@@ -82,6 +90,7 @@ router.post('/signup', async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      imageUrl: fileUrlOnCloudinary,
       accountType: {
         isFree: false,
         isPremium: false,

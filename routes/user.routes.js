@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model');
+const fileUpload = require('../config/cloudinary');
 
 // router.get('/user/dashboard', async (req, res) => {
 //   try {
@@ -52,15 +53,28 @@ router.get('/user/:id/edit', async (req, res) => {
   res.render('users/user-edit', { user });
 });
 
-router.post('/user/:id/edit', async (req, res) => {
+router.post('/user/:id/edit', fileUpload.single('image'), async (req, res) => {
   const { username, email, address } = req.body;
   const userId = req.params.id;
+  const user = await User.findById(req.params.id);
+
+  console.log(user);
+
+  let imageUrl = user.imageUrl;
+
+  console.log(`path: ${req.file}`);
+  if (req.file) {
+    imageUrl = req.file.path;
+  }
+
+  console.log(`image: ${imageUrl}`);
 
   try {
     await User.findByIdAndUpdate(userId, {
       username,
       email,
-      address
+      address,
+      imageUrl
     });
 
     res.redirect(`/user/${userId}`);
