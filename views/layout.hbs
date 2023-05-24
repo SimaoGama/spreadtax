@@ -52,34 +52,64 @@
             <a class='nav-link' href='/#plans'>Pricing</a>
 
             {{#if currentUser}}
-              <a class='nav-link' href='/user/dashboard'>Dashboard</a>
+              {{#if currentUser.isAdmin}}
+                <a class='nav-link' href='/user/dashboard'>Dashboard</a>
 
-              <li class='nav-item dropdown user-info'>
-                <a
-                  class='nav-link dropdown-toggle'
-                  href='#'
-                  id='navbarDropdown'
-                  role='button'
-                  data-toggle='dropdown'
-                  aria-haspopup='true'
-                  aria-expanded='false'
-                  style='font-size: 20px;'
-                >
-                  Hello
-                  {{currentUser.username}}
-                  {{currentUser.companyName}}
-                </a>
-                <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
-                  <a class='dropdown-item' href='/user/dashboard'>Dashboard</a>
-                  <a class='dropdown-item' href='/clients/new'>Add client</a>
-                  <div class='dropdown-divider'></div>
+                <li class='nav-item dropdown user-info'>
                   <a
-                    class='dropdown-item'
-                    href='/user/{{currentUser._id}}/edit'
-                  >Settings</a>
-                </div>
-              </li>
+                    class='nav-link dropdown-toggle'
+                    href='#'
+                    id='navbarDropdown'
+                    role='button'
+                    data-toggle='dropdown'
+                    aria-haspopup='true'
+                    aria-expanded='false'
+                    style='font-size: 20px;'
+                  >
+                    Hello
+                    {{currentUser.username}}
+                  </a>
+                  <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                    <a
+                      class='dropdown-item'
+                      href='/user/dashboard'
+                    >Dashboard</a>
+                    <a class='dropdown-item' href='/clients/new'>Add client</a>
+                    <div class='dropdown-divider'></div>
+                    <a
+                      class='dropdown-item'
+                      href='/user/{{currentUser._id}}/edit'
+                    >Settings</a>
+                  </div>
+                </li>
+              {{/if}}
 
+              {{#unless currentUser.isAdmin}}
+                <a class='nav-link' href='/user/dashboard'>Dashboard</a>
+
+                <li class='nav-item dropdown user-info'>
+                  <a
+                    class='nav-link dropdown-toggle'
+                    href='#'
+                    id='navbarDropdown'
+                    role='button'
+                    data-toggle='dropdown'
+                    aria-haspopup='true'
+                    aria-expanded='false'
+                    style='font-size: 20px;'
+                  >
+                    Hello
+                    {{currentUser.companyName}}
+                  </a>
+                  <div class='dropdown-menu' aria-labelledby='navbarDropdown'>
+                    <a
+                      class='dropdown-item'
+                      href='/client/dashboard'
+                    >Dashboard</a>
+                    <div class='dropdown-divider'></div>
+                  </div>
+                </li>
+              {{/unless}}
             {{/if}}
 
             <a class='nav-link user-info' style='font-size: 20px;'>
@@ -145,5 +175,37 @@
     <script src='/js/script.js'></script>
 
   </body>
+  <footer class='footer'>
+    <br />
+    <div class='container'>
 
+      <div class='row'>
+        <div class='col-md-6'>
+          <h5>About Us</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
+            aliquam justo id risus tincidunt, id sagittis eros commodo.</p>
+        </div>
+        <div class='col-md-3'>
+          <h5>Links</h5>
+          <ul class='list-unstyled'>
+            <li><a href='#'>Home</a></li>
+            <li><a href='#'>About</a></li>
+            <li><a href='#'>Services</a></li>
+            <li><a href='#'>Contact</a></li>
+          </ul>
+        </div>
+        <div class='col-md-3'>
+          <h5>Contact</h5>
+          <address>
+            123 Street, City<br />
+            Country<br />
+            Phone: (123) 456-7890<br />
+            Email: info@example.com
+          </address>
+        </div>
+      </div>
+      <hr />
+      <p class='text-center'>&copy; 2023 Your Company. All rights reserved.</p>
+    </div>
+  </footer>
 </html>

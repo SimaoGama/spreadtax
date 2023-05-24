@@ -11,7 +11,6 @@ const transporter = require('../config/transporter.config');
 
 const fileUpload = require('../config/cloudinary');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
 
 // router.post('/clients/hr/submit', async (req, res) => {
 //   res.render('clients/client-details');

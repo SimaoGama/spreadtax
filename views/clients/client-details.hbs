@@ -1,11 +1,11 @@
 
 
-<div id="animation">
+{{!-- <div id="animation">
   {{> animation}}
   <h3 style="text-align: center; bottom:20%; left:50%"> Gathering Some Old Files...</h3>
-</div>
+</div> --}}
 
-<div class="container-fluid" id="form" style="display: none;">
+{{!-- <div class="container-fluid" id="form" style="display: none;"> --}}
 <div class='container-fluid'>
   <hr />
 
@@ -88,8 +88,7 @@
 <hr />
 {{/each}}
 
-
-        <form action="/chat/send/{{client._id}}" method="POST">
+      <form action="/chat/send/{{client._id}}" method="POST">
         <div class="form-group">
           <input type="hidden" name="recipient" value="{{client._id}}">
           <input type="hidden" name="senderModel" value="User">
@@ -482,4 +481,4 @@
   </div>
 </div>
 
-</div>
+{{!-- </div> --}}

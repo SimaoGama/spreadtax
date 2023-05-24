@@ -8,28 +8,40 @@
     <div class='col'>
 
       <h3>Latest messages:</h3>
-      {{#each messages}}
-        <div class='card-header bg-transparent'>
-          <div class='card-body p-4'>
-            <i>{{this.timestamp}}</i>
+
+        {{#each messages}}
+        <div class="card-header bg-transparent">
+        <div class="card-body p-4">
             {{#is this.sender._id ../currentUser._id}}
-              <p>Message sent by {{this.sender.companyName}}:</p>
-                <div class='card bg-info d-inline-block p-2 px-3 m-1'>
+            <div class="row justify-content-end">
+                <div class="col-auto">
+                <div class="card border-light mb-3 text-right">
+                    <div class="card-header"><i>{{this.timestamp}}</i></div>
                     <div class="card-body">
-                    <h5 class="card-text" >{{this.content}}</h5>
+                    <p class="card-title">Message sent by {{this.sender.companyName}}:</p>
+                    <h4 class="card-text">{{this.content}}</h4>
                     </div>
                 </div>
-            {{else}}
-              <p>Message received from {{this.sender.username}}:</p>
-              <div class='card bg-light d-inline-block p-2 px-3 m-1'>
-                    <h5>{{this.content}}</h5>
                 </div>
+            </div>
+            {{else}}
+            <div class="row justify-content-start">
+                <div class="col-auto">
+                <div class="card border-primary bg-light text-black mb-3">
+                    <div class="card-header"><i>{{this.timestamp}}</i></div>
+                    <div class="card-body">
+                    <p class="card-title">Message received from {{this.sender.username}}:</p>
+                    <h4 class="card-text">{{this.content}}</h4>
+                    </div>
+                </div>
+                </div>
+            </div>
             {{/is}}
-            
-          </div>
+        </div>
         </div>
         <hr />
-      {{/each}}
+        {{/each}}
+
 
       <form action='/chat/send/{{client._id}}' method='POST'>
         <div class='form-group'>

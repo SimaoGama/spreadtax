@@ -1,8 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,200;1,400&display=swap');
+
 body {
   background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 120px; /* fix nav padding */
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+}
+
+footer {
+  padding-top: 2rem;
+
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto; /* Set the height of the footer */
+  background-color: #5b5d5e52;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-bg-color {
+  background-color: #f16225c6;
 }
 
 .title a {
@@ -41,12 +62,13 @@ body {
 }
 
 .carousel-caption h5 {
-  font-size: 70px;
+  font-size: 50px;
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-top: 25px;
-  text-shadow: 2px 2px #000000c7;
+  text-shadow: 1px 1px #ffffff;
 }
+
 .carousel-caption p {
   width: 60%;
   margin: auto;
