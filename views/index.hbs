@@ -18,33 +18,15 @@
         class='carousel-caption d-flex align-items-center justify-content-center'
       >
         <div class='text-center'>
-          <h5 class='text-uppercase fw-bold fs-5 fs-sm-4 fs-md-3'>Accounting
-            made easy</h5>
-          <p class='fs-6 fs-sm-5 fs-md-4'>Some representative placeholder
-            content for the first slide.</p>
+          <h5 class='carousel-bg text-uppercase fw-bold rounded shadow-lg'>
+            Accounting made easy
+          </h5>
         </div>
       </div>
     </div>
     <!-- Remaining carousel items -->
   </div>
-  <button
-    class='carousel-control-prev'
-    type='button'
-    data-bs-target='#carouselExampleCaptions'
-    data-bs-slide='prev'
-  >
-    <span class='carousel-control-prev-icon' aria-hidden='true'></span>
-    <span class='visually-hidden'>Previous</span>
-  </button>
-  <button
-    class='carousel-control-next'
-    type='button'
-    data-bs-target='#carouselExampleCaptions'
-    data-bs-slide='next'
-  >
-    <span class='carousel-control-next-icon' aria-hidden='true'></span>
-    <span class='visually-hidden'>Next</span>
-  </button>
+
 </div>
 
 {{! carroussel ends }}
@@ -241,11 +223,12 @@
 </div>
 
 <br />
-
+<hr />
 {{! login in the home page }}
 <div class='container-fluid'>
   <div class='container'>
     <h1 class='card-header text-center text-uppercase'>Register Today</h1>
+    <br />
     <br />
 
     <form novalidate action='/signup' method='POST'>
@@ -316,6 +299,7 @@
         <label for='password'>Password:</label>
       </div>
       <br />
+
       <button class='btn btn-primary rounded-pill' type='submit'>Register today</button>
     </form>
 

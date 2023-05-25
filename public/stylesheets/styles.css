@@ -55,6 +55,9 @@ footer {
 .section-padding {
   padding: 100px 0;
 }
+.carousel {
+  padding-top: none;
+}
 
 .carousel-item {
   height: 100vh;
@@ -189,4 +192,11 @@ footer {
   .navbar-nav .nav-link {
     margin-right: 5px; /* Adjust as needed */
   }
+}
+
+.carousel-bg {
+  background-color: #ffffff7f;
+  border: 1px ridge black;
+  padding: 0.8rem;
+  font-size: 9rem;
 }
