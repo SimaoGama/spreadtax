@@ -240,4 +240,23 @@ router.get('/client/dashboard/', async (req, res) => {
   }
 });
 
+router.post('/clients/:id/delete', async (req, res) => {
+  const currentUser = await User.findById(req.session.currentUser._id);
+  const deletedClient = await Client.findByIdAndDelete(req.params.id);
+
+  try {
+    const index = currentUser.userClients.indexOf(deletedClient._id);
+    if (index > -1) {
+      currentUser.userClients.splice(index, 1);
+    }
+
+    await currentUser.save();
+    console.log(`Client with ID ${req.params.id} deleted successfully`);
+
+    res.redirect(`/user/dashboard`);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 module.exports = router;
