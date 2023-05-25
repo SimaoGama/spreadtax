@@ -3,52 +3,74 @@
   <h3 style="text-align: center; bottom:20%; left:50%"> Listing Your Awesome Clients...</h3>
 </div>
 
-{{#if user.imageUrl}}
-      <img
-        class='rounded-circle client-logo'
-        src='{{user.imageUrl}}'
-        alt='client image'
-        width='300'
-        height='auto'
-      />
-      <br />
-      <br />
-    {{/if}}
-
-<div id='form' style='display: none;'>
-  {{#if currentUser}}
-    <div class='container-fluid'>
-      <div class='row'>
-      <div class='col'>
-        <h1>Clients list:</h1>
+{{#if user.userClients}}
+  {{#if user.imageUrl}}
+        <img
+          class='rounded-circle client-logo'
+          src='{{user.imageUrl}}'
+          alt='client image'
+          width='300'
+          height='auto'
+        />
         <br />
-        <div class='col-sm'>
-          {{#each user}}
-            {{#each this.userClients}}
-              <a
-                type='button'
-                class='btn btn-lg btn-light btn-default btn-outline-dark'
-                href='/clients/{{_id}}'
-              >{{this.companyName}}
-              </a>
-              <br />
-              <br />
+        <br />
+      {{/if}}
+
+  <div id='form' style='display: none;'>
+    {{#if currentUser}}
+      <div class='container-fluid'>
+        <div class='row'>
+        <div class='col'>
+          <h1>Clients list:</h1>
+          <br />
+          <div class='col-sm'>
+            {{#each user}}
+              {{#each this.userClients}}
+                <a
+                  type='button'
+                  class='btn btn-lg btn-light btn-default btn-outline-dark'
+                  href='/clients/{{_id}}'
+                >{{this.companyName}}
+                </a>
+                <br />
+                <br />
+              {{/each}}
             {{/each}}
-          {{/each}}
+          </div>
+          <a
+            type='button'
+            class='btn btn-secondary btn-default btn-colors'
+            href='/clients/new'
+          >New Client
+          </a>
         </div>
-        <a
-          type='button'
-          class='btn btn-secondary btn-default btn-colors'
-          href='/clients/new'
-        >New Client
-        </a>
+      </div>
+      <br>
+      {{!-- <div class='col'>
+        <h2>Calendar</h2>
+      </div> --}}
+    </div>
+    {{/if}}
+    {{else}}
+    <div class="container">
+          <a
+            type='button'
+            class='btn btn-secondary btn-default btn-colors'
+            href='/clients/new'
+          >Add a Client
+          </a>
+    <div id="animation" style="justify-content: center; align-items: center; height: 100vh;">
+        <lottie-player
+          src="https://assets7.lottiefiles.com/private_files/lf30_e3pteeho.json"
+          background="transparent"
+          speed="1"
+          style="width: 600px; height: 600px; position: absolute; top: 70%; left: 50%; transform: translate(-50%, -50%);"
+          loop
+          autoplay
+        ></lottie-player>
+        
       </div>
     </div>
-    <br>
-    {{!-- <div class='col'>
-      <h2>Calendar</h2>
-    </div> --}}
+    {{/if}}
   </div>
-
-  {{/if}}</div>
  
