@@ -4,16 +4,15 @@ body {
   background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 120px; /* fix nav padding */
+  padding-top: 10vh; /* fix nav padding */
   font-family: 'Montserrat', sans-serif;
   min-height: 100vh;
 }
 
 footer {
   padding-top: 2rem;
-
   left: 0;
-  bottom: 0;
+  bottom: 0%;
   width: 100%;
   height: auto; /* Set the height of the footer */
   background-color: #5b5d5e52;

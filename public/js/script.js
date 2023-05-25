@@ -13,7 +13,7 @@ function activateDarkMode() {
   let currentNavTheme = nav.dataset.bsTheme;
 
   body.style.backgroundImage = 'none';
-  body.style.backgroundColor = '#060606';
+  /* body.style.backgroundColor = '#060606'; */
 
   header.dataset.bsTheme = currentHeaderTheme == 'light' ? 'dark' : 'light';
   body.dataset.bsTheme = currentBodyTheme == 'light' ? 'dark' : 'light';
@@ -22,16 +22,21 @@ function activateDarkMode() {
   if (nav.dataset.bsTheme === 'dark') {
     nav.classList.add('bg-black');
     nav.classList.remove('bg-white');
-    body.style.backgroundColor = 'black';
-    localStorage.setItem('dark-mode', 'true'); // Set dark mode to true
+
+    body.style.backgroundImage = "url('/images/darker.png')";
+
+    /* localStorage.setItem('dark-mode', 'true'); // Set dark mode to true */
 
     let image = document.querySelector('.dk-mode');
     image.src = '/images/dark.png'; //
   } else {
     nav.classList.add('bg-white');
     nav.classList.remove('bg-black');
-    body.style.backgroundColor = '';
-    localStorage.setItem('dark-mode', 'false'); // Set dark mode to false
+
+    body.style.backgroundImage = "url('/images/background.jpg')";
+
+    /* localStorage.setItem('dark-mode', 'false'); // Set dark mode to false */
+
     let image = document.querySelector('.dk-mode');
     image.src = '/images/light.png'; //
   }
@@ -81,18 +86,4 @@ buttons.forEach(button => {
     buttons.forEach(otherButton => otherButton.classList.remove('active'));
     button.classList.add('active');
   });
-});
-
-require('@lottiefiles/lottie-player/dist/lottie-player.js');
-
-// Select the container
-const container = document.querySelector('#animation-container');
-
-// Create a new Lottie player instance
-const player = container.querySelector('lottie-player');
-player.load();
-
-// Render the animation in the container
-player.addEventListener('load', () => {
-  player.play();
 });
