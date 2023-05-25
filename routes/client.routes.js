@@ -95,7 +95,7 @@ router.post('/clients/new', fileUpload.single('image'), async (req, res) => {
     address,
     imageUrl: fileUrlOnCloudinary
   });
-  console.log(fileUrlOnCloudinary);
+
   //Find current user
   const currentUser = await User.findById(req.session.currentUser._id);
 

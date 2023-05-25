@@ -8,7 +8,12 @@
   >Back</a>
   <hr />
 
-  <form novalidate action='/user/{{user.id}}/edit' method='POST'>
+  <form
+    novalidate
+    action='/user/{{user.id}}/edit'
+    method='POST'
+    enctype='multipart/form-data'
+  >
     <div class='form-floating'>
       <input
         class='form-control'
@@ -36,25 +41,22 @@
     </div>
 
     <br />
-
     <div class='form-floating'>
       <input
         class='form-control'
-        type='password'
-        name='password'
-        placeholder='password'
-        value='{{user.password}}'
-        required
-        disabled
+        type='file'
+        name='image'
+        value='{{user.imageUrl}}'
+        placeholder='{{user.imageUrl}}'
       />
-      <label for='address'>Password</label>
+      <label for='companyImage'>Company Image:</label>
+      <br />
     </div>
-
-    <br />
 
     <button class='btn btn-lg btn-primary' type='submit'>Save changes</button>
   </form>
 
+  <br />
   <form action='/user/change-password' method='POST'>
 
     <div class='form-floating'>
@@ -68,6 +70,7 @@
       />
       <label for='password'>Input Current Password</label>
     </div>
+    <br />
     <div class='form-floating'>
       <input
         class='form-control'
@@ -79,6 +82,7 @@
       />
       <label for='newPassword'>Input New Password</label>
     </div>
+    <br />
     <div class='form-floating'>
       <input
         class='form-control'
@@ -90,7 +94,7 @@
       />
       <label for='confirmedPassword'>Confirm New Password</label>
     </div>
-
+    <br />
     <button type='submit' class='btn btn-lg btn-primary'>
       Change Password
     </button>

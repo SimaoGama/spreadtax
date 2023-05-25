@@ -5,7 +5,7 @@
 
 <div class='container' id='form' style='display: none;'>
   <br />
-  <form novalidate action='/signup' method='POST'>
+  <form novalidate action='/signup' method='POST' enctype='multipart/form-data'>
 
     <div class='d-flex justify-content-around' data-toggle='buttons'>
       <label class='btn btn-primary active btn-custom'>
@@ -72,6 +72,18 @@
         required
       />
       <label for='password'>Password:</label>
+    </div>
+
+<br>
+    <div class='form-floating'>
+      <input
+        class='form-control'
+        type='file'
+        name='image'
+        placeholder='image'
+      />
+      <label for='companyImage'>Company Image:</label>
+      <br />
     </div>
 
     <br />

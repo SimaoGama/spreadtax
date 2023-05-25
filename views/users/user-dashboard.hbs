@@ -3,15 +3,22 @@
   <h3 style="text-align: center; bottom:20%; left:50%"> Listing Your Awesome Clients...</h3>
 </div>
 
-
+{{#if user.imageUrl}}
+      <img
+        class='rounded-circle client-logo'
+        src='{{user.imageUrl}}'
+        alt='client image'
+        width='300'
+        height='auto'
+      />
+      <br />
+      <br />
+    {{/if}}
 
 <div id='form' style='display: none;'>
   {{#if currentUser}}
     <div class='container-fluid'>
-      <h1>Dashboard</h1>
-      <br />
       <div class='row'>
-
       <div class='col'>
         <h1>Clients list:</h1>
         <br />

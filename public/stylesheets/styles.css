@@ -25,6 +25,12 @@ footer {
   background-color: #f16225c6;
 }
 
+/* .bg-img {
+  background-image: url('/images/orrranje-removebg-preview.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
+
 .title a {
   font-size: 40px;
 }
@@ -159,4 +165,28 @@ footer {
   transform: scale(
     1.5
   ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+/* Default styles for the navbar */
+.navbar {
+  padding: 10px; /* Adjust as needed */
+}
+
+.navbar-brand {
+  font-size: 24px; /* Adjust as needed */
+}
+
+.navbar-nav .nav-link {
+  margin-right: 10px; /* Adjust as needed */
+}
+
+/* Media query for screens smaller than 768px (mobile devices) */
+@media (max-width: 767.98px) {
+  .navbar-brand {
+    font-size: 20px; /* Adjust as needed */
+  }
+
+  .navbar-nav .nav-link {
+    margin-right: 5px; /* Adjust as needed */
+  }
 }
