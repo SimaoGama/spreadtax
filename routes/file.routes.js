@@ -4,6 +4,7 @@ const router = express.Router();
 const Client = require('../models/Client.model');
 const User = require('../models/User.model');
 const File = require('../models/File.model');
+const Chat = require('../models/Chat.model');
 
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
@@ -23,7 +24,12 @@ router.post(
     let type = req.params.type;
     const user = req.session.currentUser;
     const clientId = req.params.id;
-    const client = await Client.findById(clientId);
+    const client = await Client.findById(clientId).populate({
+      path: 'chats',
+      populate: { path: 'sender recipient' },
+      options: { sort: { timestamp: 'desc' }, limit: 3 }
+    });
+
     const { month } = req.body;
     let newFile;
 
@@ -65,7 +71,8 @@ router.post(
         client,
         months,
         errorMessage,
-        type
+        type,
+        messages: client.chats
       });
     }
 
@@ -139,7 +146,17 @@ router.post(
       }
       //res.send
       console.log('File uploaded successfully!');
-      res.redirect(`/clients/${clientId}/#hr`);
+
+      if (req.session.currentUser.isAdmin) {
+        res.redirect(`/clients/${clientId}/#hr`);
+      } else {
+        return res.render(`clients/client-dashboard`, {
+          client,
+          months,
+          type,
+          messages: client.chats
+        });
+      }
     } catch (error) {
       console.error(error);
       return res.status(500).send('Error saving file to database');
@@ -148,6 +165,7 @@ router.post(
 );
 
 router.get('/clients/:id/:type/documents', async (req, res) => {
+  const currentUser = req.session.currentUser;
   const clientId = req.params.id;
   const type = req.params.type;
   const { month } = req.query;
@@ -168,7 +186,14 @@ router.get('/clients/:id/:type/documents', async (req, res) => {
   ];
 
   try {
-    const client = await Client.findById(clientId).populate('clientFiles');
+    const client = await Client.findById(clientId)
+      .populate('clientFiles')
+      .populate({
+        path: 'chats',
+        populate: { path: 'sender recipient' },
+        options: { sort: { timestamp: 'desc' }, limit: 3 }
+      });
+
     if (!client) {
       return res.status(404).send('Client not found');
     }
@@ -179,108 +204,128 @@ router.get('/clients/:id/:type/documents', async (req, res) => {
       query.month = month;
     }
 
-    if (type === 'hr') {
-      query.tag = 'human resources';
-      let hrFiles = await File.find(query).populate('fileClient');
-      if (!hrFiles || hrFiles.length === 0) {
-        const errorSearchMessage = 'No files found';
-        console.log('No files');
-        return res.render('clients/client-details', {
+    if (currentUser.isAdmin) {
+      if (type === 'hr') {
+        query.tag = 'human resources';
+        let hrFiles = await File.find(query).populate('fileClient');
+        if (!hrFiles || hrFiles.length === 0) {
+          const errorSearchMessage = 'No files found';
+          console.log('No files');
+          return res.render('clients/client-details', {
+            client,
+            months,
+            errorSearchMessage
+          });
+        }
+        res.render('clients/client-details', {
           client,
-          months,
-          errorSearchMessage
+          hrFiles, // Use 'files' as the variable name
+          months
+        });
+      } else if (type === 'mt') {
+        query.tag = 'monthly taxes';
+        let mtFiles = await File.find(query).populate('fileClient');
+        if (!mtFiles || mtFiles.length === 0) {
+          const errorSearchMessage = 'No files found';
+          console.log('No files');
+          return res.render('clients/client-details', {
+            client,
+            months,
+            errorSearchMessage
+          });
+        }
+        console.log(mtFiles);
+        res.render('clients/client-details', {
+          client,
+          mtFiles, // Use 'files' as the variable name
+          months
+        });
+      } else if (type === 'yt') {
+        query.tag = 'yearly taxes';
+        let ytFiles = await File.find(query).populate('fileClient');
+        if (!ytFiles || ytFiles.length === 0) {
+          const errorSearchMessage = 'No files found';
+          console.log('No files');
+          return res.render('clients/client-details', {
+            client,
+            months,
+            errorSearchMessage
+          });
+        }
+        res.render('clients/client-details', {
+          client,
+          files: ytFiles, // Use 'files' as the variable name
+          months
         });
       }
-      console.log(hrFiles);
-      res.render('clients/client-details', {
-        client,
-        hrFiles, // Use 'files' as the variable name
-        months
-      });
-    } else if (type === 'mt') {
-      query.tag = 'monthly taxes';
-      let mtFiles = await File.find(query).populate('fileClient');
-      if (!mtFiles || mtFiles.length === 0) {
-        const errorSearchMessage = 'No files found';
-        console.log('No files');
-        return res.render('clients/client-details', {
+      //code if user is Client
+    } else {
+      if (type === 'hr') {
+        query.tag = 'human resources';
+        let hrFiles = await File.find(query).populate('fileClient');
+        if (!hrFiles || hrFiles.length === 0) {
+          const errorSearchMessage = 'No files found';
+          console.log('No files');
+          return res.render('clients/client-dashboard', {
+            client,
+            months,
+            errorSearchMessage,
+            messages: client.chats
+          });
+        }
+        res.render('clients/client-dashboard', {
           client,
+          hrFiles, // Use 'files' as the variable name
           months,
-          errorSearchMessage
+          messages: client.chats
+        });
+      } else if (type === 'mt') {
+        query.tag = 'monthly taxes';
+        let mtFiles = await File.find(query).populate('fileClient');
+        if (!mtFiles || mtFiles.length === 0) {
+          const errorSearchMessage = 'No files found';
+          console.log('No files');
+          return res.render('clients/client-dashboard', {
+            client,
+            months,
+            errorSearchMessage,
+            messages: client.chats
+          });
+        }
+        console.log(mtFiles);
+        res.render('clients/client-dashboard', {
+          client,
+          mtFiles, // Use 'files' as the variable name
+          months,
+          messages: client.chats
+        });
+      } else if (type === 'yt') {
+        query.tag = 'yearly taxes';
+        let ytFiles = await File.find(query).populate('fileClient');
+        if (!ytFiles || ytFiles.length === 0) {
+          const errorSearchMessage = 'No files found';
+          console.log('No files');
+          return res.render('clients/client-dashboard', {
+            client,
+            months,
+            errorSearchMessage,
+            messages: client.chats
+          });
+        }
+        res.render('clients/client-dashboard', {
+          client,
+          files: ytFiles, // Use 'files' as the variable name
+          months,
+          messages: client.chats
         });
       }
-      console.log(mtFiles);
-      res.render('clients/client-details', {
-        client,
-        mtFiles, // Use 'files' as the variable name
-        months
-      });
-    } else if (type === 'yt') {
-      query.tag = 'yearly taxes';
-      let ytFiles = await File.find(query).populate('fileClient');
-      if (!ytFiles || ytFiles.length === 0) {
-        const errorSearchMessage = 'No files found';
-        console.log('No files');
-        return res.render('clients/client-details', {
-          client,
-          months,
-          errorSearchMessage
-        });
-      }
-
-      res.render('clients/client-details', {
-        client,
-        files: ytFiles, // Use 'files' as the variable name
-        months
-      });
     }
-
     console.log(query);
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error');
   }
 });
-
-// router.get('/clients/:id/hr/documents', async (req, res) => {
-//   const clientId = req.params.id;
-
-//   try {
-//     const client = await Client.findById(clientId);
-//     if (!client) {
-//       return res.status(404).send('Client not found');
-//     }
-
-//     // Get the documents/files for the client
-//     const hrFiles = await File.find({ clientId, tag: 'hr' });
-
-//     res.render('clients/client-details', { client, hrFiles });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Server error');
-//   }
-// });
-
-// router.get('/clients/:id/mt/documents', async (req, res) => {
-//   const clientId = req.params.id;
-
-//   try {
-//     const client = await Client.findById(clientId);
-//     if (!client) {
-//       return res.status(404).send('Client not found');
-//     }
-
-//     // Get the documents/files for the client
-//     const mtFiles = await File.find({ clientId, tag: 'monthly taxes' });
-
-//     console.log(mtFiles);
-
-//     res.render('clients/client-details', { client, mtFiles });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Server error');
-//   }
-// });
 
 router.post('/clients/:id/:type/documents/:fileId/delete', async (req, res) => {
   const clientId = req.params.id;

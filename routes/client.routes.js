@@ -193,7 +193,7 @@ router.get('/clients/:id/edit', async (req, res) => {
   res.render('clients/client-edit', { client });
 });
 
-router.get('/client/dashboard', async (req, res) => {
+router.get('/client/dashboard/', async (req, res) => {
   try {
     if (!req.session.currentUser || !req.session.currentUser._id) {
       res.redirect('/login');
@@ -211,7 +211,23 @@ router.get('/client/dashboard', async (req, res) => {
           populate: { path: 'sender recipient' }
         });
 
+      const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
+
       res.render('clients/client-dashboard', {
+        months,
         client,
         clientId,
         messages: client.chats,
