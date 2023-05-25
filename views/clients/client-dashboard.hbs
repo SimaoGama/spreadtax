@@ -2,7 +2,17 @@
   <h1>Client Dashboard</h1>
   <div class='row'>
     <div class='col'>
-
+{{#if client.imageUrl}}
+      <img
+        class='rounded-circle client-logo'
+        src='{{client.imageUrl}}'
+        alt='client image'
+        width='300'
+        height='auto'
+      />
+      <br />
+      <br />
+    {{/if}}
     </div>
 
     <div class='col'>
@@ -63,4 +73,387 @@
 
     </div>
   </div>
+
+<div class='accordion' id='accordionExample'>
+    <div class='card'>
+      <div class='card-header' id='headingOne'>
+        <h5 class='mb-0'>
+          <button
+            class='btn btn-link btn-colors'
+            type='button'
+            data-toggle='collapse'
+            data-target='#collapseOne'
+            aria-expanded='true'
+            aria-controls='collapseOne'
+            id="hr"
+          >
+            Human Resourses
+          </button>
+        </h5>
+      </div>
+
+      <div
+        id='collapseOne'
+        class='collapse show'
+        aria-labelledby='headingOne'
+        data-parent='#accordionExample'
+      >
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='col'>
+
+              <div class='card-body'>
+                <h4 class='text-center'>Upload documents</h4>
+                {{! form HR }}
+                <div class='form-floating'>
+                  <form
+                    novalidate
+                    method='POST'
+                    action='/clients/{{client._id}}/hr/submit'
+                    enctype='multipart/form-data'
+                  >
+                    <select
+                      class='form-select'
+                      name='month'
+                      aria-label='Select month'
+                      required
+                    >
+                      <option value=''>Select month</option>
+                      {{#each months}}
+                        <option name='month' value='{{this}}'>{{this}}</option>
+                      {{/each}}
+                    </select>
+                    <br />
+
+                    <input
+                      class='form-control'
+                      type='file'
+                      name='file'
+                      placeholder='Files'
+                      required
+                    />
+                    <br />
+                    <button
+                      class='btn btn-primary'
+                      type='submit'
+                    >Submit</button>
+                  </form>
+                </div>
+              </div>
+              {{! end form HR }}
+              {{#if errorMessage}}
+                <div class='alert alert-danger' role='alert'>
+                  <div style='color: red'>
+                    {{errorMessage}}
+                  </div>
+                </div>
+              {{/if}}
+            </div>
+
+            <div class='col'>
+              <div class='card-body'>
+                <h4 class='text-center'>Download documents</h4>
+                <form
+                  id='hr-search-form'
+                  method='GET'
+                  action='/clients/{{client._id}}/hr/documents#hr-search-form'
+                  enctype='multipart/form-data'
+                >
+                  <select
+                    class='form-select'
+                    name='month'
+                    aria-label='Select month'
+                    required
+                  >
+                    <option value=''>Select month</option>
+                    {{#each months}}
+                      <option name='month' value='{{this}}'>{{this}}</option>
+                    {{/each}}
+                  </select>
+                  <br />
+                  <button class='btn btn-primary' type='submit'>Search</button>
+                </form>
+
+                {{#if hrFiles}}
+                  {{#each hrFiles}}
+                    {{this.name}}
+                    <a class='zoom' href='{{this.fileUrl}}'>
+                      <br />
+                      <img
+                        class='zoom'
+                        src='{{this.fileUrl}}'
+                        alt='{{this.name}}'
+                        width='200'
+                        height='auto'
+                      />
+                    </a>
+                    <form
+                      action='/clients/{{../client._id}}/hr/documents/{{this.id}}/delete'
+                      method='POST'
+                      onsubmit="return confirm('Are you sure you want to delete {{this.name}}?')"
+                    >
+                      <button class='btn btn-danger'>
+                        Delete file
+                      </button>
+                    </form>
+                  {{/each}}
+                {{/if}}
+
+                {{#if errorSearchMessage}}
+                  <div class='alert alert-danger' role='alert'>
+                    <div style='color: red'>
+                      {{errorSearchMessage}}
+                    </div>
+                  </div>
+                {{/if}}
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class='card'>
+      <div class='card-header' id='headingTwo'>
+        <h5 class='mb-0'>
+          <button
+            class='btn btn-link collapsed btn-colors'
+            type='button'
+            data-toggle='collapse'
+            data-target='#collapseTwo'
+            aria-expanded='false'
+            aria-controls='collapseTwo'
+            id="mt"
+          >
+            Monthly Taxes
+          </button>
+        </h5>
+      </div>
+
+      <div
+        id='collapseTwo'
+        class='collapse'
+        aria-labelledby='headingTwo'
+        data-parent='#accordionExample'
+      >
+        {{! form MT }}
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='col'>
+
+              <div class='card-body'>
+                <h4 class='text-center'>Upload documents</h4>
+                {{! form HR }}
+                <div class='form-floating'>
+                  <form
+                    novalidate
+                    method='POST'
+                    action='/clients/{{client._id}}/mt/submit'
+                    enctype='multipart/form-data'
+                  >
+                    <select
+                      class='form-select'
+                      name='month'
+                      aria-label='Select month'
+                      required
+                    >
+                      <option value=''>Select month</option>
+                      {{#each months}}
+                        <option name='month' value='{{this}}'>{{this}}</option>
+                      {{/each}}
+                    </select>
+                    <br />
+
+                    <input
+                      class='form-control'
+                      type='file'
+                      name='file'
+                      placeholder='Files'
+                      required
+                    />
+                    <br />
+                    <button
+                      class='btn btn-primary'
+                      type='submit'
+                    >Submit</button>
+                  </form>
+                </div>
+              </div>
+              {{! end form }}
+              {{#if errorMessage}}
+                <div class='alert alert-danger' role='alert'>
+                  <div style='color: red'>
+                    {{errorMessage}}
+                  </div>
+                </div>
+              {{/if}}
+            </div>
+
+            <div class='col'>
+              <div class='card-body'>
+                <h4 class='text-center'>Download documents</h4>
+                <form
+                  id='mt-search-form'
+                  method='GET'
+                  action='/clients/{{client._id}}/mt/documents#mt-search-form'
+                  enctype='multipart/form-data'
+                >
+                  <select
+                    class='form-select'
+                    name='month'
+                    aria-label='Select month'
+                    required
+                  >
+                    <option value=''>Select month</option>
+                    {{#each months}}
+                      <option name='month' value='{{this}}'>{{this}}</option>
+                    {{/each}}
+                  </select>
+                  <br />
+                  <button class='btn btn-primary' type='submit'>Search</button>
+                </form>
+
+                {{#if mtFiles}}
+                  {{#each mtFiles}}
+                    {{this.name}}
+                    <a class='zoom' href='{{this.fileUrl}}'>
+                      <br />
+                      <img
+                        class='zoom'
+                        src='{{this.fileUrl}}'
+                        alt='{{this.name}}'
+                        width='200'
+                        height='auto'
+                      />
+                    </a>
+                    <form
+                      action='/clients/{{../client._id}}/mt/documents/{{this.id}}/delete'
+                      method='POST'
+                      onsubmit="return confirm('Are you sure you want to delete {{this.name}}?')"
+                    >
+                      <button class='btn btn-danger'>
+                        Delete file
+                      </button>
+                    </form>
+                  {{/each}}
+                {{/if}}
+
+                {{#if errorSearchMessage}}
+                  <div class='alert alert-danger' role='alert'>
+                    <div style='color: red'>
+                      {{errorSearchMessage}}
+                    </div>
+                  </div>
+                {{/if}}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+
+    <div class='card'>
+      <div class='card-header' id='headingThree'>
+        <h5 class='mb-0'>
+          <button
+            class='btn btn-link collapsed btn-colors'
+            type='button'
+            data-toggle='collapse'
+            data-target='#collapseThree'
+            aria-expanded='false'
+            aria-controls='collapseThree'
+            id="yt"
+          >
+            Yearly Taxes
+          </button>
+        </h5>
+      </div>
+      <div
+        id='collapseThree'
+        class='collapse'
+        aria-labelledby='headingThree'
+        data-parent='#accordionExample'
+      >
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='col'>
+
+              <div class='card-body'>
+                <h4 class='text-center'>Upload documents</h4>
+                {{! form HR }}
+                <div class='form-floating'>
+                  <form
+                    novalidate
+                    method='POST'
+                    action='/clients/{{client._id}}/yt/submit'
+                    enctype='multipart/form-data'
+                  >
+                    <select
+                      class='form-select'
+                      name='month'
+                      aria-label='Select month'
+                      required
+                    >
+                      <option value=''>Select month</option>
+                      {{#each months}}
+                        <option name='month' value='{{this}}'>{{this}}</option>
+                      {{/each}}
+                    </select>
+                    <br />
+
+                    <input
+                      class='form-control'
+                      type='file'
+                      name='file'
+                      placeholder='Files'
+                      required
+                    />
+                    <br />
+                    <button
+                      class='btn btn-primary'
+                      type='submit'
+                    >Submit</button>
+                  </form>
+                </div>
+              </div>
+              {{! end form }}
+              {{#if errorMessage}}
+                <div class='alert alert-danger' role='alert'>
+                  <div style='color: red'>
+                    {{errorMessage}}
+                  </div>
+                </div>
+              {{/if}}
+            </div>
+
+            <div class='col'>
+              <div class='card-body'>
+                <h4 class='text-center'>Download documents</h4>
+                <select
+                  class='form-select'
+                  name='month'
+                  aria-label='Select month'
+                  required
+                >
+                  <option value=''>Select month</option>
+                  {{#each months}}
+                    <option name='month' value='{{this}}'>{{this}}</option>
+                  {{/each}}
+                </select>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div>
