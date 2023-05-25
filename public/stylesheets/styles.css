@@ -4,7 +4,7 @@ body {
   background-image: url('/images/background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 10vh; /* fix nav padding */
+  padding-top: 15vh; /* fix nav padding */
   font-family: 'Montserrat', sans-serif;
   min-height: 100vh;
 }
