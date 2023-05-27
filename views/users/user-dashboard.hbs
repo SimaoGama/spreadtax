@@ -2,7 +2,7 @@
   {{> animation}}
   <h3 style="text-align: center; bottom:20%; left:50%"> Listing Your Awesome Clients...</h3>
 </div>
-
+<div id='form' style='display: none;'>
 {{#if user.userClients}}
   {{#if user.imageUrl}}
         <img
@@ -14,14 +14,15 @@
         />
         <br />
         <br />
+        <h1 style="font-weight: bold; margin-left:10px">{{user.username}}</h1>
       {{/if}}
 
-  <div id='form' style='display: none;'>
+  
     {{#if currentUser}}
       <div class='container-fluid'>
         <div class='row'>
         <div class='col'>
-          <h1>Clients list:</h1>
+          <h2>Clients list:</h2>
           <br />
           <div class='col-sm'>
             {{#each user}}
@@ -52,6 +53,10 @@
     </div>
     {{/if}}
     {{else}}
+    <script>
+      let animation = document.getElementById('animation');
+      animation.style.display = 'none';
+    </script>
     <div class="container">
           <a
             type='button'
@@ -68,6 +73,7 @@
           loop
           autoplay
         ></lottie-player>
+        <h3 style="text-align: center; bottom:20%; left:50%"> No Clients yet, get out there and go get some</h3>
       </div>
     </div>
     {{/if}}
