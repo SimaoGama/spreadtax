@@ -1,15 +1,12 @@
 const express = require('express');
 const router = express.Router();
-
 const Client = require('../models/Client.model');
 const User = require('../models/User.model');
 const File = require('../models/File.model');
 const Chat = require('../models/Chat.model');
-
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const transporter = require('../config/transporter.config');
-
 const fileUpload = require('../config/cloudinary');
 const multer = require('multer');
 
@@ -324,6 +321,75 @@ router.get('/clients/:id/:type/documents', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error');
+  }
+});
+
+router.get('/clients/:id/file-alert', async (req, res) => {
+  const user = req.session.currentUser;
+  const clientId = req.params.id;
+  const client = await Client.findById(clientId)
+    .populate('clientFiles')
+    .populate({
+      path: 'chats',
+      populate: { path: 'sender recipient' },
+      options: { sort: { timestamp: 'desc' }, limit: 3 }
+    });
+
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+
+  try {
+    const emailTemplate = `<!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>${user.username} sent you a reminder</title>
+    </head>
+    <body>
+      <h1>Your accountant ${user.username} wants to remind you that some files are missing</h1>
+      <p>Dear ${client.companyName},</p>
+      <p>Please don't forget to add the necessary files on your portal.</p>
+
+      <p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
+      <p>Best regards,</p>
+      <p>Spreadtax team</p>
+    </body>
+    </html>`;
+
+    //send confirmation email
+    const mailOptions = {
+      from: `"Spreadtax" <${process.env.EMAIL_ADDRESS}>`,
+      to: client.email,
+      subject: 'Welcome to Spreadtax',
+      html: emailTemplate
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log('Email sent successfully');
+      res.render('clients/client-details', {
+        client,
+        months,
+        messages: client.chats
+      });
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Error sending alert');
   }
 });
 

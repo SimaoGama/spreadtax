@@ -384,6 +384,10 @@
                   <br />
                   <button class='btn btn-primary' type='submit'>Search</button>
                 </form>
+                <div><a href="/clients/{{client._id}}/file-alert" class="btn btn-primary" style="background-color: rgba(255, 0, 0, 0.709);">
+  <img src="/images/bell.png" alt="bell" style="vertical-align: middle; margin-right: 5px; widht:20px; height:20px; border-color:rgba(255, 0, 0, 0.709); ">
+  Send Alert
+</a></div>
 
                 {{#if mtFiles}}
                   {{#each mtFiles}}
@@ -415,9 +419,11 @@
                     <div style='color: red'>
                       {{errorSearchMessage}}
                     </div>
+                    
                   </div>
+                 
                 {{/if}}
-
+ 
               </div>
             </div>
           </div>
