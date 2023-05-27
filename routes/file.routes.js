@@ -209,53 +209,59 @@ router.get('/clients/:id/:type/documents', async (req, res) => {
         query.tag = 'human resources';
         let hrFiles = await File.find(query).populate('fileClient');
         if (!hrFiles || hrFiles.length === 0) {
-          const errorSearchMessage = 'No files found';
+          const errorSearchMessageHr = 'No files found';
           console.log('No files');
           return res.render('clients/client-details', {
             client,
             months,
-            errorSearchMessage
+            errorSearchMessageHr,
+            messages: client.chats
           });
         }
         res.render('clients/client-details', {
           client,
           hrFiles, // Use 'files' as the variable name
-          months
+          months,
+          messages: client.chats
         });
       } else if (type === 'mt') {
         query.tag = 'monthly taxes';
         let mtFiles = await File.find(query).populate('fileClient');
         if (!mtFiles || mtFiles.length === 0) {
-          const errorSearchMessage = 'No files found';
+          const errorSearchMessageMt = 'No files found';
           console.log('No files');
           return res.render('clients/client-details', {
             client,
             months,
-            errorSearchMessage
+            errorSearchMessageMt,
+            messages: client.chats
           });
         }
         console.log(mtFiles);
         res.render('clients/client-details', {
           client,
           mtFiles, // Use 'files' as the variable name
-          months
+          months,
+          messages: client.chats
         });
       } else if (type === 'yt') {
         query.tag = 'yearly taxes';
         let ytFiles = await File.find(query).populate('fileClient');
         if (!ytFiles || ytFiles.length === 0) {
-          const errorSearchMessage = 'No files found';
+          const errorSearchMessageYt = 'No files found';
           console.log('No files');
           return res.render('clients/client-details', {
             client,
             months,
-            errorSearchMessage
+            errorSearchMessageYt,
+            messages: client.chats
           });
         }
         res.render('clients/client-details', {
           client,
           files: ytFiles, // Use 'files' as the variable name
-          months
+          months,
+          messages: client.chats
         });
       }
       //code if user is Client

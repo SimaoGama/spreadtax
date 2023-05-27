@@ -209,10 +209,10 @@
                 </div>
               </div>
               {{! end form HR }}
-              {{#if errorMessage}}
+              {{#if errorMessageHr}}
                 <div class='alert alert-danger' role='alert'>
                   <div style='color: red'>
-                    {{errorMessage}}
+                    {{errorMessageHr}}
                   </div>
                 </div>
               {{/if}}
@@ -267,10 +267,10 @@
                   {{/each}}
                 {{/if}}
 
-                {{#if errorSearchMessage}}
+                {{#if errorSearchMessageHr}}
                   <div class='alert alert-danger' role='alert'>
                     <div style='color: red'>
-                      {{errorSearchMessage}}
+                      {{errorSearchMessageHr}}
                     </div>
                   </div>
                 {{/if}}
@@ -352,10 +352,10 @@
                 </div>
               </div>
               {{! end form }}
-              {{#if errorMessage}}
+              {{#if errorMessageMt}}
                 <div class='alert alert-danger' role='alert'>
                   <div style='color: red'>
-                    {{errorMessage}}
+                    {{errorMessageMt}}
                   </div>
                 </div>
               {{/if}}
@@ -410,10 +410,10 @@
                   {{/each}}
                 {{/if}}
 
-                {{#if errorSearchMessage}}
+                {{#if errorSearchMessageMt}}
                   <div class='alert alert-danger' role='alert'>
                     <div style='color: red'>
-                      {{errorSearchMessage}}
+                      {{errorSearchMessageMt}}
                     </div>
                   </div>
                 {{/if}}
@@ -492,10 +492,10 @@
                 </div>
               </div>
               {{! end form }}
-              {{#if errorMessage}}
+              {{#if errorMessageYt}}
                 <div class='alert alert-danger' role='alert'>
                   <div style='color: red'>
-                    {{errorMessage}}
+                    {{errorMessageYt}}
                   </div>
                 </div>
               {{/if}}
@@ -516,8 +516,42 @@
                   {{/each}}
                 </select>
                 <br />
+                <button class='btn btn-primary' type='submit'>Search</button>
               </div>
             </div>
+{{#if mtFiles}}
+                  {{#each mtFiles}}
+                    {{this.name}}
+                    <a class='zoom' href='{{this.fileUrl}}'>
+                      <br />
+                      <img
+                        class='zoom'
+                        src='{{this.fileUrl}}'
+                        alt='{{this.name}}'
+                        width='200'
+                        height='auto'
+                      />
+                    </a>
+                    <form
+                      action='/clients/{{../client._id}}/mt/documents/{{this.id}}/delete'
+                      method='POST'
+                      onsubmit="return confirm('Are you sure you want to delete {{this.name}}?')"
+                    >
+                      <button class='btn btn-danger'>
+                        Delete file
+                      </button>
+                    </form>
+                  {{/each}}
+                {{/if}}
+
+                {{#if errorSearchMessageMt}}
+                  <div class='alert alert-danger' role='alert'>
+                    <div style='color: red'>
+                      {{errorSearchMessageMt}}
+                    </div>
+                  </div>
+                {{/if}}
+
           </div>
         </div>
       </div>
