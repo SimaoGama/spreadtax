@@ -18,7 +18,8 @@
   <img align="left" width="45%" height="auto" src="https://i.imgur.com/k4x6Os5.png" >
 </p>
 
-# Technologies
+<p>
+  # Technologies
 <p>
   ### Front-End: 
 - Handlebarsjs
@@ -44,6 +45,8 @@
 ### Others
 <p>- Nodemailer
 - Lottie Files</p>
+</p>
+
 
 
 ## Made By 
