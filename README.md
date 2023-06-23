@@ -1,6 +1,4 @@
-<p
-  align="center"
-  ># Spreadtax</p>
+ #                                                         Spreadtax
 <p align="center">
   <img width="100%" height="100%" src="https://i.imgur.com/wLr2iQU.png">
 </p>
