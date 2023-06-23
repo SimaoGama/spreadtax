@@ -1,7 +1,9 @@
 # Spreadtax
 Welcome to SpreadTax! An web application built for accountants and their customers to make their accounting easy and stress free.
 
-[Imgur](https://i.imgur.com/pq3VOPo.png)
+<p align="center">
+  <img width="220" height="220" src="https://i.imgur.com/pq3VOPo.png">
+</p>
 
 # Technologies
 ### Front-End: 
