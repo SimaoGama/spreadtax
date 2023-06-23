@@ -1,4 +1,10 @@
-# Spreadtax
+<p
+  align="center"
+  ># Spreadtax</p>
+<p align="center">
+  <img width="100%" height="100%" src="https://i.imgur.com/wLr2iQU.png">
+</p>
+  
 ### Welcome to SpreadTax! An web application built for accountants and their customers to make their accounting easy and stress free.
 
 <p align="center">
