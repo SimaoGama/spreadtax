@@ -2,7 +2,7 @@
 ### Welcome to SpreadTax! An web application built for accountants and their customers to make their accounting easy and stress free.
 
 <p align="center">
-  <img width="100%" height="100%" src="https://i.imgur.com/pq3VOPo.png">
+  <img width="100%" height="100%" src="https://i.imgur.com/Fn0GHr7.png">
 </p>
 
 ### Custom Dashboard To Add Your Clients
