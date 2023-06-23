@@ -13,39 +13,39 @@
 
 ### Built In Inbox With Email Notification
 
-<p>
+
   <img align="right" width="45%" height="auto" src="https://i.imgur.com/TpNKxVJ.png" >
   <img align="left" width="45%" height="auto" src="https://i.imgur.com/k4x6Os5.png" >
-</p>
 
-<p>
+
+
   # Technologies
-<p>
+
   ### Front-End: 
 - Handlebarsjs
 - Bootstrap
-</p>
+
 
 
 
 ### Back-End:
-<p>
+
   - Node.JS
 - Express.JS
-</p>
+
 
 
 ### Database
-<p>
+
 - MongoDB
 - Cloudinary
-</p>
+
 
 
 ### Others
-<p>- Nodemailer
+- Nodemailer
 - Lottie Files</p>
-</p>
+
 
 
 
