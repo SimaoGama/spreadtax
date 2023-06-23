@@ -13,9 +13,9 @@
 
 ### Built In Inbox With Email Notification
 
-<p width="100vw">
-  <img align="left" width="50%" height="auto" src="https://i.imgur.com/k4x6Os5.png" >
+<p>
   <img align="right" width="50%" height="auto" src="https://i.imgur.com/TpNKxVJ.png" >
+  <img align="left" width="50%" height="auto" src="https://i.imgur.com/k4x6Os5.png" >
 </p>
 
 # Technologies
