@@ -14,26 +14,37 @@
 ### Built In Inbox With Email Notification
 
 <p>
-  <img align="right" width="50%" height="auto" src="https://i.imgur.com/TpNKxVJ.png" >
-  <img align="left" width="50%" height="auto" src="https://i.imgur.com/k4x6Os5.png" >
+  <img align="right" width="45%" height="auto" src="https://i.imgur.com/TpNKxVJ.png" >
+  <img align="left" width="45%" height="auto" src="https://i.imgur.com/k4x6Os5.png" >
 </p>
 
 # Technologies
-### Front-End: 
+<p>
+  ### Front-End: 
 - Handlebarsjs
 - Bootstrap
+</p>
+
+
 
 ### Back-End:
-- Node.JS
+<p>
+  - Node.JS
 - Express.JS
+</p>
+
 
 ### Database
+<p>
 - MongoDB
 - Cloudinary
+</p>
+
 
 ### Others
-- Nodemailer
-- Lottie Files
+<p>- Nodemailer
+- Lottie Files</p>
+
 
 ## Made By 
 # Diogo Santos & Simão Gama
